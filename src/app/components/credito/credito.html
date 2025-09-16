@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Solicitud de Crédito</title>
+  <style>
+    /* ======== Fondo con animación morada elegante ======== */
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: "Segoe UI", Arial, sans-serif;
+
+      background: linear-gradient(270deg, #5b1aa1, #7c2dc0, #4a0f7d, #5b1aa1);
+      background-size: 800% 800%;
+      animation: fondoMorado 25s ease-in-out infinite;
+    }
+
+    @keyframes fondoMorado {
+      0%   { background-position: 0% 50%; }
+      25%  { background-position: 50% 100%; }
+      50%  { background-position: 100% 50%; }
+      75%  { background-position: 50% 0%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* ======== Contenedor principal ======== */
+    .page {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 90px;
+    }
+
+    /* ======== Formulario compacto ======== */
+    .credit-form {
+      background: white;
+      margin-top: 120px; /* espacio por el banner */
+      padding: 30px 40px;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 650px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .credit-form h2 {
+      margin-top: 10px;
+      color: #3c1c5c;
+      font-size: 24px;
+    }
+
+    .credit-form p {
+      margin-bottom: 25px;
+      color: #5b1aa1;
+      font-weight: 500;
+    }
+
+    .logo {
+      display: block;
+      margin: 0 auto 15px;
+    }
+
+    /* Grupos de campos */
+    .form-group {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .form-group {
+        grid-template-columns: 1fr 1fr;
+        gap: 20px 30px;
+      }
+    }
+
+    .form-group label {
+      text-align: left;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .form-group input {
+      padding: 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* Botón */
+    .btn {
+      background-color: #5b1aa1;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 28px;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      background-color: #4a0f7d;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- Banner superior -->
+   <div style="background:#3a0057; color:rgb(190, 190, 116); padding:25px; display:flex; justify-content:space-between; align-items:center; position:fixed; top:0; left:0; width:100%; z-index:10;">
+      <div style="font-weight:bold; font-size:25px;">NOVA CAPITAL</div>
+      <div>
+        <a href="#" style="color:white; text-decoration:none; margin-right:25px; font-size:25px;">Ayuda</a>
+        <a href="#" style="color:white; text-decoration:none; font-size:25px;">Salir</a>
+      </div>
+    </div>
+
+
+    <!-- Contenedor principal -->
+    <div class="credit-form">
+      <h2>Solicitud de Crédito</h2>
+
+      <form>
+        <div class="form-group">
+          <label>Monto del préstamo</label>
+          <input type="number" placeholder="Ej. 10000" required>
+        </div>
+
+        <div class="form-group">
+          <label>Plazo (Meses) hasta 12</label>
+          <input type="number" placeholder="Ej. 12" max="12" required>
+        </div>
+
+        <div class="form-group">
+          <label>Ingreso Semanal</label>
+          <input type="text" placeholder="Ej. $550 cada jueves" required>
+        </div>
+
+        <button class="btn" type="submit">Enviar Solicitud</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

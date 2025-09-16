@@ -1,0 +1,138 @@
+/* ======== Fondo con animación morada elegante ======== */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Segoe UI", Arial, sans-serif;
+
+  /* Degradado animado */
+  background: linear-gradient(
+    270deg,
+    #5b1aa1,
+    #7c2dc0,
+    #4a0f7d,
+    #5b1aa1
+  );
+  background-size: 800% 800%;
+  animation: fondoMorado 25s ease-in-out infinite;
+}
+
+/* Animación del fondo */
+@keyframes fondoMorado {
+  0%   { background-position: 0% 50%; }
+  25%  { background-position: 50% 100%; }
+  50%  { background-position: 100% 50%; }
+  75%  { background-position: 50% 0%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ======== Topbar ======== */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #3c1c5c; /* morado oscuro serio */
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 32px;
+  font-weight: bold;
+  z-index: 10;
+}
+
+.topbar .nav-links a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: normal;
+}
+
+.topbar .nav-links a:hover {
+  text-decoration: underline;
+}
+
+/* ======== Contenedor principal ======== */
+.page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 90px; /* espacio para la barra fija */
+}
+
+/* ======== Formulario compacto ======== */
+.form-container {
+  background: white;
+  margin-top: 40px;
+  padding: 30px 40px;          /* menos padding */
+  border-radius: 16px;
+  width: 90%;
+  max-width: 650px;           /* más angosto */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.form-container h2 {
+  margin-top: 10px;
+  color: #3c1c5c;
+  font-size: 24px;
+}
+
+.form-container p {
+  margin-bottom: 25px;
+  color: #5b1aa1;
+  font-weight: 500;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 15px;
+}
+
+/* Grupos de campos */
+.form-group {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;                  /* menos espacio vertical */
+  margin-bottom: 20px;        /* más compacto */
+}
+
+@media (min-width: 768px) {
+  .form-group {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 30px;
+  }
+}
+
+.form-group label {
+  text-align: left;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group input {
+  padding: 10px 12px;         /* más compacto */
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Botón */
+.btn {
+  background-color: #5b1aa1;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 28px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn:hover {
+  background-color: #4a0f7d;
+}

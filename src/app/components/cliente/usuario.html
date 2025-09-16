@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Nova Capital</title>
+</head>
+<body style="margin:0; font-family:Arial, sans-serif; background:#f5f5f5;">
+
+  <!-- Banner superior -->
+  <div style="background:#3a0057; color:rgb(190, 190, 116); padding: 25px; display:flex; justify-content:space-between; align-items:center;">
+    <div style="font-weight:bold; font-size:25px;">NOVA CAPITAL</div>
+    <div>
+      <a href="#" style="color:white; text-decoration:none; margin-right:25px; font-size:25px;">Ayuda</a>
+      <a href="#" style="color:white; text-decoration:none; font-size:25px;">Salir</a>
+    </div>
+  </div>
+
+  <!-- Sección tarjeta -->
+  <div style="background:#543367; color:white; padding:60px; display:flex; justify-content:flex-start; align-items:center; gap:40px;">
+    <div style="background:white; border-radius:12px; padding:90px; display:flex; flex-direction:column; justify-content:center; align-items:center; width:450px; height:200px;">
+  <img src="../../../../public/tarjeta2.png" alt="Tarjeta" style="width:350px; border-radius:10px;">
+  <h1 style="margin-top:1px; color:#c9c962;">0000 0000 0000 0000</h1>
+</div>
+
+
+    <div style="text-align: justify; margin:auto;">
+  <h2 style="margin:0; color:#ffffff;">Hola, Nombre</h2>
+  <p style="margin:25px 0; color:#ffffff;">Saldo disponible</p>
+  <h1 style="margin:0; color:#ffffff;">$1,000.00</h1>
+
+  <div style="margin-top:30px; display:flex; gap:40px; justify-content:center;">
+    <!-- Opción Transferir -->
+    <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+      <img src="../../../../public/transferir.png" alt="Transferir" style="height:50px;">
+      <button style="background:#5a247a; color:white; border:none; padding:10px 18px; border-radius:6px; cursor:pointer;">Transferir</button>
+    </div>
+
+    <!-- Opción Retirar -->
+    <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+      <img src="../../../../public/retirar.png" alt="Retirar" style="height:50px;">
+      <button style="background:#5a247a; color:white; border:none; padding:10px 18px; border-radius:6px; cursor:pointer;">Retirar sin tarjeta</button>
+    </div>
+
+    <!-- Opción Pagos -->
+    <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
+      <img src="../../../../public/pagos.png" alt="Pagos" style="height:50px;">
+      <button style="background:#5a247a; color:white; border:none; padding:10px 18px; border-radius:6px; cursor:pointer;">Pagos</button>
+    </div>
+  </div>
+</div>
+
+  </div>
+
+  <!-- Carrusel -->
+  <!-- Carrusel automático (pegar en tu HTML) -->
+<div style="margin:30px auto; width:100%; overflow:hidden;">
+  <!-- viewport: ocultamos el scroll para que no se vea la barra -->
+  <div id="viewport" style="width:100%; overflow:hidden;">
+    <!-- track: contenido en fila -->
+    <div id="track" style="display:flex; gap:20px; padding:10px; align-items:center; width:max-content;">
+      <img src="../../../../public/img1.png" alt="Imagen 1" style="height:350px; border-radius:12px; flex-shrink:0;">
+      <img src="../../../../public/img2.png" alt="Imagen 2" style="height:350px; border-radius:12px; flex-shrink:0;">
+      <img src="../../../../public/img3.png" alt="Imagen 3" style="height:350px; border-radius:12px; flex-shrink:0;">
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const viewport = document.getElementById('viewport');
+    const track = document.getElementById('track');
+
+    // duplicamos el contenido para efecto infinito
+    track.innerHTML = track.innerHTML + track.innerHTML;
+
+    const speed = 0.6; // px por frame (ajusta: más grande = más rápido)
+    let running = true;
+
+    function step() {
+      if (running) {
+        viewport.scrollLeft += speed;
+        // cuando llegamos a la mitad (primera copia), retrocedemos sin que se note
+        if (viewport.scrollLeft >= track.scrollWidth / 2) {
+          viewport.scrollLeft -= track.scrollWidth / 2;
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+
+    // --- opcional: pausar al pasar el mouse (quita si no quieres esta funcionalidad) ---
+    viewport.addEventListener('mouseenter', () => { running = false; });
+    viewport.addEventListener('mouseleave', () => { running = true; });
+  });
+</script>
+
+
+
+</body>
+</html>
+
