@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-prestamo',
   standalone: true,
   imports: [],
-  templateUrl: './prestamo.component.html',
+  templateUrl: './prestamo.html',
   styleUrls: ['./prestamo.component.css'],
 })
 export class PrestamoComponent {

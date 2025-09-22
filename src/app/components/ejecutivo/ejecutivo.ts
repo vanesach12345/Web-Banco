@@ -4,8 +4,8 @@ import {  RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 @Component({
   selector: 'panel-ejecutivo',
   standalone: true,
-  templateUrl: './panel-ejecutivo.html',
-  styleUrls: ['./panel-ejecutivo.css'],
+  templateUrl: './ejecutivo.html',
+  styleUrls: ['./ejecutivo.css'],
     imports: [RouterModule, RouterLink, RouterLinkActive],
 
 })
