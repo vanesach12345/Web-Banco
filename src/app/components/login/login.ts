@@ -1,16 +1,19 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+//no te olvides de estas dos pedo
+import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
-  imports: [FormsModule],
+  selector: 'app-login-home',
+  standalone: true,    
+  //poner librerias se utilizan pal boton redireccionamiento
+  imports: [CommonModule, RouterLink],
   templateUrl: './login.html',
   styleUrls: ['./login.css']
+  
 })
-export class LoginComponent {
-  email: string = '';
-  password: string = '';
-
-}
+//otorgar nombre diferente a los demas para que en app.router.ts le digas de donde vas a agarrar
+//la redireccion
+export class LoginHome {}
 

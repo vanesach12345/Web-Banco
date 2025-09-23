@@ -6,7 +6,7 @@ import {  RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
   standalone: true,
   templateUrl: './ejecutivo.html',
   styleUrls: ['./ejecutivo.css'],
-    imports: [RouterModule, RouterLink, RouterLinkActive],
+    imports: [RouterModule,],
 
 })
 export class panelejecutivo {}
