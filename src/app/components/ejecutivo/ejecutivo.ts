@@ -9,4 +9,4 @@ import {  RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
     imports: [RouterModule,],
 
 })
-export class panelejecutivo {}
+export class EjecutivoComponent {}

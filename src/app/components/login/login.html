@@ -5,77 +5,86 @@
   <title>Login Banco Seguro</title>
   <style>
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f5f6fa;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
-      position: relative;
-    }
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f6fa;
+  height: 100vh;
+  display: flex;
+  justify-content: center;  /* centro horizontal */
+  align-items: center;      /* centro vertical */
+  position: relative;
+  overflow: hidden;
+}
 
-    /* Fondo con rectángulos */
+/* Caja de login */
+.login-box {
+  background: #fff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0px 6px 25px rgba(0,0,0,0.1);
+  width: 380px;
+  text-align: center;
+  z-index: 1;
+  position: relative;
+}
+
+    /* Fondo decorativo (capa detrás) */
     .background {
+      position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none; /* para que no interfiera con clicks */
-      overflow: hidden;
       z-index: 0;
+      pointer-events: none;
     }
 
-  .background img {
-    position: absolute; /* todas las imágenes de fondo se posicionan */
-  }
-    .rect1 {
-      top: -9px;          /* pegado arriba */
-      left: -2%;           /* un poco a la izquierda */
-      width: 350px;
+    .background img {
+      position: absolute;
       opacity: 0.9;
-      transform: rotate(-6deg);
     }
 
-    .rect2 {
-      position: absolute;   /* aseguramos que quede flotando */
-      top: 10px;            /* pegado arriba */
-      left: -1%;             /* ahora a la izquierda */
-      width: 300px;
-      opacity: 0.85;
-      transform: rotate(-3deg);
-    }
+    /* Rectángulos */
+   .rect1 {
+  top: -50px;
+  left: -50px;
+  width: 300px;
+  transform: rotate(-12deg);
+}
 
-    .tarjeta2 {
-      bottom: 100px; 
-      left: 15%;
-      transform: translateX(-50%) rotate(2deg);
-      width: 280px;
-    }
+.rect2 {
+  top: -10px;
+  left: -30px;
+  width: 250px;
+  transform: rotate(-6deg);
+}
 
-    /* Contenedor general */
-    .login-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 80px;
-      z-index: 1;
-    }
+    /* Tarjetas */
+.card1 {
+  bottom: 50px;
+  right: 5%;
+  width: 550px;
+  transform: rotate(-10deg);
+}
 
-    /* Caja de login */
-    .login-box {
-      background: #fff;
-      padding: 40px;
-      border-radius: 16px;
-      box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
-      width: 400px;
-      text-align: center;
+.card2 {
+  bottom: 150px;
+  left: 10%;
+  width: 350px;
+  transform: rotate(8deg);
+}
+
+    /* Caja de login (capa encima) */
+    
+
+    .logo img {
+      width: 70px;
+      margin-bottom: 16px;
     }
 
     .login-box h2 {
-      margin-bottom: 8px;
-      font-size: 24px;
+      margin-bottom: 6px;
+      font-size: 22px;
       font-weight: bold;
       color: #000;
     }
@@ -83,15 +92,9 @@
     .login-box p {
       margin-bottom: 24px;
       color: #666;
+      font-size: 14px;
     }
 
-    /* Logo */
-    .logo img {
-      width: 80px;
-      margin-bottom: 16px;
-    }
-
-    /* Inputs */
     label {
       display: block;
       text-align: left;
@@ -104,14 +107,13 @@
     input {
       width: 100%;
       padding: 12px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       border-radius: 8px;
       border: 1px solid #ccc;
       outline: none;
       font-size: 14px;
     }
 
-    /* Botón principal */
     .btn-primary {
       width: 100%;
       padding: 12px;
@@ -121,34 +123,16 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 15px;
     }
 
     .btn-primary:hover {
       background: #4a148c;
     }
 
-    /* Botón secundario */
-    .btn-secondary {
-      width: 100%;
-      padding: 12px;
-      background: white;
-      border: 2px solid #6a1b9a;
-      color: #6a1b9a;
-      border-radius: 8px;
-      margin-top: 12px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    .btn-secondary:hover {
-      background: #f3e5f5;
-    }
-
-    /* Links */
     .link-forgot {
       display: block;
-      margin: 12px 0;
+      margin: 14px 0;
       color: #f57c00;
       text-decoration: none;
       font-size: 14px;
@@ -159,116 +143,78 @@
       text-decoration: underline;
     }
 
-    /* Tarjeta lateral */
-    .card-image img {
-      width: 600px;
-      transform: rotate(-5deg);
+    .btn-secondary {
+      width: 100%;
+      padding: 12px;
+      background: white;
+      border: 2px solid #6a1b9a;
+      color: #6a1b9a;
+      border-radius: 8px;
+      margin-top: 12px;
+      cursor: pointer;
+      font-size: 15px;
     }
-    /* Tablets (pantallas medianas) */
-@media (max-width: 992px) {
-  .rect1 {
-    width: 280px;
-    transform: translateX(-120px) rotate(-6deg);
-  }
 
-  .rect2 {
-    width: 240px;
-    transform: translateX(-40px) rotate(-3deg);
-  }
+    .btn-secondary:hover {
+      background: #f3e5f5;
+    }
 
-  .tarjeta2 {
-   
-    width: 220px;
-  }
+    /* Responsivo */
+    @media (max-width: 992px) {
+      .card1, .card2 {
+        width: 200px;
+      }
+    }
 
-  .login-container {
-    flex-direction: column; /* apilar login y tarjeta */
-    gap: 40px;
-  }
-
-  .card-image  {
-    width: 450px;
-    transform: rotate(-2deg);
-  }
-}
-
-/* Móviles (pantallas pequeñas) */
-@media (max-width: 600px) {
-  .rect1 {
-    width: 200px;
-    transform: translateX(-50%) rotate(-6deg);
-    left: 50%;
-  }
-
-  .rect2 {
-    width: 180px;
-    transform: translateX(-50%) rotate(-3deg);
-    left: 50%;
-    top: -20px;
-  }
-
-  .tarjeta2 {
-    width: 180px;
-    bottom: -20px;
-  }
-
-  .login-box {
-    width: 90%; /* que ocupe casi todo el ancho */
-    padding: 20px;
-  }
-
-  .card-image {
-    width: 380px;
-    transform: rotate(-1deg);
-    margin-top: 40px; 
-  }
-
-  .login-container {
-    gap: 30px;
-  }
-}
+    @media (max-width: 600px) {
+      .rect1, .rect2 {
+        width: 180px;
+        left: 50%;
+        transform: translateX(-50%) rotate(-10deg);
+      }
+      .card1, .card2 {
+        display: none; /* ocultamos tarjetas en móviles */
+      }
+      .login-box {
+        width: 90%;
+        padding: 25px;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Fondo con imágenes -->
+  <!-- Fondo: rectángulos + tarjetas -->
   <div class="background">
-    <img src="../../../assets/img/rectangulo1.png" alt="Rectángulo morado 1" class="rect2">
-    <img src="../../../assets/img/rectangulo2.png" alt="Rectángulo morado 2" class="rect1">
-    <img src="../../../assets/img/tarjeta2.png" alt="Tarjeta Nova Capital" class="tarjeta2">
-
+    <img src="../../../assets/img/rectangulo1.png" alt="Rectángulo morado 1" class="rect1">
+    <img src="../../../assets/img/rectangulo2.png" alt="Rectángulo morado 2" class="rect2">
+    <img src="/assets/tarjeta.png" alt="Tarjeta Nova Capital" class="card1">
+    <img src="/assets/tarjeta2.png" alt="Tarjeta Nova Capital" class="card2">
   </div>
 
-
-  <div class="login-container"> 
-    <!-- Caja de login -->
-    <div class="login-box">
-      <div class="logo">
-        <img src="../../../assets/img/logo.png" alt="Nova Capital">
-      </div>
-      <h2>Banco Seguro</h2>
-      <p>Ingresa a tu banco</p>
-
-      <form>
-        <label for="email">Correo electrónico</label>
-        <input id="email" type="email" placeholder="tu@email.com">
-
-        <label for="password">Contraseña</label>
-        <input id="password" type="password" placeholder="******">
-
-        <button class="btn-primary" type="submit">Iniciar Sesión</button>
-      </form>
- <!-- Redirecion ejemplos  -->
-      <a class="link-forgot" href="/solicitud" >¿Olvidaste tu contraseña?</a>
-      <p>¿No tienes cuenta?</p>
-     <a href="/solicitud"> <button type="submit" class="btn-secondary">Crear Cuenta Nueva</button></a>
+  <!-- Login centrado -->
+  <div class="login-box">
+    <div class="logo">
+      <img src="../../../assets/img/logo.png" alt="Nova Capital">
     </div>
+    <h2>Banco Seguro</h2>
+    <p>Ingresa a tu banco</p>
 
-    <!-- Tarjeta lateral -->
-    <div class="card-image">
-      <img src="/assets/tarjeta.png" alt="Tarjeta Nova Capital">
-    </div>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+    <label for="email">Correo electrónico</label>
+    <input id="email" type="email" formControlName="email" placeholder="tu@email.com">
+
+    <label for="password">Contraseña</label>
+    <input id="password" type="password" formControlName="password" placeholder="">
+
+    <button class="btn-primary" type="submit" [disabled]="loading">Iniciar Sesión</button>
+  </form>
+  <p *ngIf="error" style="color:#d00;margin-top:10px">{{ error }}</p>
+
+
+    <a class="link-forgot" href="/solicitud">¿Olvidaste tu contraseña?</a>
+    <p>¿No tienes cuenta?</p>
+    <a href="/solicitud"><button type="button" class="btn-secondary">Crear Cuenta Nueva</button></a>
+    
   </div>
 </body>
 </html>
-
-

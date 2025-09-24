@@ -6,4 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './gerente.html',
   styleUrls: ['./gerente.css']
 })
-export class panelgerente {}
+export class GerenteComponent {}
