@@ -11,6 +11,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(withInterceptors([jwtInterceptor])),
     provideRouter(routes),
+    
     provideRouter(routes, withEnabledBlockingInitialNavigation()), 
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(
@@ -18,6 +19,6 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([jwtInterceptor])   
     ),
     provideZonelessChangeDetection(),
-    provideClientHydration(withEventReplay()),
+   
   ],
 };

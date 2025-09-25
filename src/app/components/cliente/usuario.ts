@@ -12,7 +12,11 @@ import { CommonModule } from '@angular/common';
   templateUrl: './usuario.html',
   styleUrls: ['./cliente.css']
   
+  
 })
+
+
+
 //otorgar nombre diferente a los demas para que en app.router.ts le digas de donde vas a agarrar
 //la redireccion
 export class ClienteComponent {}
