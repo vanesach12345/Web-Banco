@@ -1,18 +1,15 @@
-// src/app/guards/auth.guard.ts
 import { inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { CanActivateFn, Router } from '@angular/router';
+import { CanActivateFn, Router, UrlTree } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
-export const authGuard: CanActivateFn = () => {
-  const a = inject(AuthService);
-  const r = inject(Router);
-  const plat = inject(PLATFORM_ID);
-  const isBrowser = isPlatformBrowser(plat);
+export const authGuard: CanActivateFn = (): boolean | UrlTree => {
+  const auth = inject(AuthService);
+  const router = inject(Router);
+  const platformId = inject(PLATFORM_ID);
 
-  if (!isBrowser) return true;           // 👈 durante SSR, permite y que el cliente redirija
-  if (a.isLoggedIn()) return true;
+  // En SSR permite pasar; en cliente evalúa sesión
+  if (!isPlatformBrowser(platformId)) return true;
 
-  r.navigate(['/login']);
-  return false;
+  return auth.isLoggedIn() ? true : router.createUrlTree(['/login']);
 };

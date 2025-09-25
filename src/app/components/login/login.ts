@@ -9,7 +9,8 @@ import { AuthService } from '../../services/auth.service';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './login.html',
-  styleUrls: ['./login.css']
+  styleUrls: ['./login.css'],
+   host: { 'ngSkipHydration': '' },
 })
 export class LoginHome {
   private fb = inject(FormBuilder);
@@ -24,30 +25,33 @@ export class LoginHome {
     password: ['', [Validators.required]],
   });
 
-  submit() {
-    console.log('[login] submit() llamado'); // <-- debug
-    if (this.form.invalid) { console.log('[login] form inválido', this.form.value); return; }
+  submit(){
+  console.log('[login] submit', this.form.value);        // debe verse al dar clic
+  if (this.form.invalid) return;
 
-    this.loading = true; this.error = null;
-    const { email, password } = this.form.value as { email: string; password: string };
+  this.loading = true; this.error = null;
+  const { email, password } = this.form.value as { email:string; password:string };
 
-    console.log('[login] POST a /api/auth/login', email);
-    this.auth.login(email, password).subscribe({
-      next: (resp) => {
-        console.log('[login] respuesta OK', resp);
-        this.auth.saveSession(resp);
-        const role = this.auth.roleId;
-        if (role === 1) this.router.navigate(['/cliente']);
-        else if (role === 2) this.router.navigate(['/gerente']);
-        else if (role === 3) this.router.navigate(['/ejecutivo']);
-        else this.router.navigate(['/login']);
-      },
-      error: (e) => {
-        console.error('[login] error', e);
-        this.error = e?.error?.error || 'Error de autenticación';
-        this.loading = false;
-      },
-      complete: () => this.loading = false
-    });
-  }
-}
+  this.auth.login(email, password).subscribe({
+    next: (resp) => {
+      console.log('[login] resp', resp);
+      this.auth.saveSession(resp);
+      const role = this.auth.roleId;
+      console.log('[login] role', role);
+
+      // prueba rápida: primero fuerza navegación simple
+      // this.router.navigate(['/cliente']); return;
+
+      if (role === 1) this.router.navigate(['/cliente']);
+      else if (role === 2) this.router.navigate(['/gerente']);
+      else if (role === 3) this.router.navigate(['/ejecutivo']);
+      else this.router.navigate(['/login']);
+    },
+    error: (e) => {
+      console.error('[login] error', e);
+      this.error = e?.error?.error || 'Error de autenticación';
+      this.loading = false;
+    },
+    complete: () => this.loading = false
+  });
+  }}

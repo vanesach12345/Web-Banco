@@ -1,20 +1,18 @@
-// src/app/guards/role.guard.ts
 import { inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { CanActivateFn, ActivatedRouteSnapshot, Router } from '@angular/router';
+import { CanActivateFn, ActivatedRouteSnapshot, Router, UrlTree } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
-export const roleGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
-  const a = inject(AuthService);
-  const r = inject(Router);
-  const plat = inject(PLATFORM_ID);
-  const isBrowser = isPlatformBrowser(plat);
+export const roleGuard: CanActivateFn = (route: ActivatedRouteSnapshot): boolean | UrlTree => {
+  const auth = inject(AuthService);
+  const router = inject(Router);
+  const platformId = inject(PLATFORM_ID);
 
-  if (!isBrowser) return true;           // 👈 evita tocar storage en SSR
+  if (!isPlatformBrowser(platformId)) return true;
+
   const allowed: number[] = route.data?.['roles'] ?? [];
-  const role = a.roleId;
-
-  if (a.isLoggedIn() && role && allowed.includes(role)) return true;
-  r.navigate(['/login']);
-  return false;
+  const role = auth.roleId;
+  return (auth.isLoggedIn() && role != null && allowed.includes(role))
+    ? true
+    : router.createUrlTree(['/login']);
 };

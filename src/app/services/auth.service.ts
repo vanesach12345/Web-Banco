@@ -1,4 +1,3 @@
-// src/app/services/auth.service.ts
 import { Injectable, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -18,33 +17,12 @@ export class AuthService {
   }
 
   saveSession(resp: LoginResponse) {
-    if (!this.isBrowser) return;                 // 👈 evita SSR
+    if (!this.isBrowser) return;
     localStorage.setItem('token', resp.token);
     localStorage.setItem('user', JSON.stringify(resp.user));
   }
 
-  get token(): string | null {
-    return this.isBrowser ? localStorage.getItem('token') : null; // 👈
-  }
-
-  get user(): any | null {
-    if (!this.isBrowser) return null;            // 👈
-    try { return JSON.parse(localStorage.getItem('user') || 'null'); }
-    catch { return null; }
-  }
-
-  get roleId(): number | null {
-    return this.user?.id_rol ?? null;
-  }
-
-  isLoggedIn(): boolean {
-    return !!this.token;
-  }
-
-  logout() {
-    if (this.isBrowser) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('user');
-    }
-  }
+  get user()   { return this.isBrowser ? JSON.parse(localStorage.getItem('user')||'null') : null; }
+  get roleId() { const r = this.user?.id_rol; return r!=null ? Number(r) : null; }
+  isLoggedIn() { return this.isBrowser && !!localStorage.getItem('token'); }
 }
