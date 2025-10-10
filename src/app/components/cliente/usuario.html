@@ -1,0 +1,121 @@
+<!-- Banner -->
+<div class="banner">
+  <div class="logo">NOVA CAPITAL</div>
+  <div class="nav-links">
+    <a href="#">Ayuda</a>
+    <a href="#">Salir</a>
+  </div>
+</div>
+
+<!-- Dashboard principal -->
+<div class="dashboard">
+
+  <!-- Columna izquierda -->
+  <div class="left-col">
+
+    <!-- Tarjeta -->
+    <div class="tarjeta">
+      <div class="tarjeta-chip">
+  <img src="../../../assets/img/chip.png" alt="Chip tarjeta" />
+</div>
+
+      <div class="tarjeta-saldo">
+        <span>Saldo disponible</span>
+        <h2>$1,000.00</h2>
+      </div>
+      <div class="tarjeta-num">4567 8896 5564 8743</div>
+      <div class="tarjeta-footer">
+        <div>
+          <p class="label">Titular</p>
+          <p class="value">Carlos Rodríguez</p>
+        </div>
+        <div>
+          <p class="label">Vence</p>
+          <p class="value">12/28</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Movimientos recientes -->
+    <div class="movimientos">
+      <h3>Movimientos recientes</h3>
+      <div class="movimiento" *ngFor="let trans of transacciones">
+        <div class="info">
+          <p class="nombre">{{ trans.name }}</p>
+          <span class="fecha">{{ trans.date }}</span>
+        </div>
+        <span class="monto" [ngClass]="trans.type">{{ trans.amount }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Columna derecha -->
+  <div class="right-col">
+
+    <!-- Bienvenida -->
+    <div class="bienvenida">
+      <h2>Bienvenido, Cristian</h2>
+      <p>Gestiona tus finanzas de manera inteligente</p>
+
+      <div class="info-cuenta">
+        <h4>Información de cuenta</h4>
+        <div class="row">
+          <span>Tipo de cuenta</span>
+          <span class="valor">Premium</span>
+        </div>
+        <div class="row">
+          <span>Número de cuenta</span>
+          <span class="valor">**4892</span>
+        </div>
+        <div class="row">
+          <span>Estado</span>
+          <span class="valor activa">Activa</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Acciones rápidas -->
+    <div class="acciones-grid">
+      <div class="accion">
+        <img src="../../../assets/img/transferir.png" alt="Transferir entre cuentas">
+        <span>Transferir entre cuentas</span>
+      </div>
+      <div class="accion">
+        <img src="../../../assets/img/trasferencia_usuarios.png" alt="Transferencia entre usuarios">
+        <span>Transferencia entre usuarios</span>
+      </div>
+      <div class="accion">
+        <img src="../../../assets/img/trasferencia_bancaria.png" alt="Transferencia bancaria saliente">
+        <span>Transferencia bancaria saliente</span>
+      </div>
+      <div class="accion">
+        <img src="../../../assets/img/trasferencia_sepa.png" alt="Transferencia SEPA">
+        <span>Transferencia SEPA</span>
+      </div>
+      <div class="accion">
+        <img src="../../../assets/img/trasferencia_fondos.png" alt="Fondos de la tarjeta">
+        <span>Fondos de la tarjeta</span>
+      </div>
+      <div class="accion">
+        <img src="../../../assets/img/compre_venta.png" alt="Criptomonedas">
+        <span>Compra-Venta-Intercambio de Criptomonedas</span>
+      </div>
+      <div class="accion">
+        <img src="../../../assets/img/trasferencia_entrante.png" alt="Transferencia bancaria entrante">
+        <span>Transferencia bancaria entrante</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Promociones y Beneficios -->
+<div class="carrusel">
+  <h2>Promociones y Beneficios</h2>
+  <div class="carrusel-track">
+    <div class="slide" *ngFor="let promo of promociones">
+      <img [src]="promo.img" alt="Promo" />
+      <h3>{{ promo.titulo }}</h3>
+      <p>{{ promo.texto }}</p>
+    </div>
+  </div>
+</div>
