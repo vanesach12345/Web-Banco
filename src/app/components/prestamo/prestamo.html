@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Nova Capital</title>
+
+  <style>
+    /* --- Fondo general con degradado morado elegante y animado --- */
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+
+      background: linear-gradient(
+        270deg,
+        #5b1aa1,
+        #7c2dc0,
+        #4a0f7d,
+        #5b1aa1
+      );
+      background-size: 800% 800%;
+      animation: fondoMorado 25s ease-in-out infinite;
+
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    /* Animación suave del fondo */
+    @keyframes fondoMorado {
+      0%   { background-position: 0% 50%; }
+      25%  { background-position: 50% 100%; }
+      50%  { background-position: 100% 50%; }
+      75%  { background-position: 50% 0%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* --- Contenedor general de la página --- */
+    .page {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+
+
+    .logo-left {
+      font-weight: bold;
+      letter-spacing: 1px;
+      font-size: 18px;
+    }
+
+    .nav-links a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-size: 15px;
+      transition: color .3s;
+    }
+    .nav-links a:hover {
+      color: #f7c843;
+    }
+
+    /* --- Contenedor del formulario --- */
+    .form-container {
+      background: white;
+      margin-top: 140px;
+      padding: 50px 60px;
+      border-radius: 20px;
+      width: 850px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .form-container .logo {
+      width: 100px;
+      height: 90px;
+      margin-bottom: 20px;
+    }
+
+    .form-container h2 {
+      margin: 10px 0 5px;
+      color: #2c1343;
+      font-size: 26px;
+    }
+
+    .form-container p {
+      color: #4b237a;
+      font-weight: 600;
+      margin-bottom: 30px;
+    }
+
+    /* --- Grupos de campos --- */
+    .form-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px 40px;
+      margin-bottom: 25px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+      transition: border-color .3s, box-shadow .3s;
+    }
+
+    .form-group input:focus {
+      border-color: #4b237a;
+      box-shadow: 0 0 5px rgba(75, 35, 122, 0.4);
+    }
+
+    /* --- Botón de enviar --- */
+    .btn {
+      background: #4b237a;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 40px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background .3s, transform .2s;
+    }
+
+    .btn:hover {
+      background: #f7c843;
+      color: #2c1343;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+  <!-- Banner superior -->
+  <div style="background:#3a0057; color:rgb(190, 190, 116); padding:20px; display:flex; justify-content:space-between; align-items:center; position:fixed; top:0; left:0; width:100%; z-index:10;">
+    <div style="font-weight:bold; font-size:25px;">NOVA CAPITAL</div>
+    <div>
+      <a href="#" style="color:white; text-decoration:none; margin-right:25px; font-size:25px;">Ayuda</a>
+      <a href="#" style="color:white; text-decoration:none; font-size:25px;">Salir</a>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <img src="../../../../public/logo.png" alt="Logo Banco" class="logo">
+    <h2>Banco Seguro</h2>
+    <p>Solicitud de Préstamo</p>
+
+    <form id="loanForm">
+      <div class="form-group">
+        <label>Nombre completo</label>
+        <input type="text" required>
+        <label>Comprobante Domicilio</label>
+        <input type="file" accept=".pdf" required>
+      </div>
+
+      <div class="form-group">
+        <label>CURP</label>
+        <input type="text" placeholder="Ejemplo: GODE561231HDFRRN09" required>
+        <label>Correo</label>
+        <input type="email" placeholder="ejemplo@correo.com" required>
+      </div>
+
+      <div class="form-group">
+        <label>Monto a Solicitar</label>
+        <input type="number" min="0" required>
+        <label>Duración del préstamo (Meses)</label>
+        <input type="number" min="0" required>
+      </div>
+
+      <div class="form-group">
+        <label>Número Tel</label>
+        <input type="tel" placeholder="Ejemplo: 5512345678" required>
+      </div>
+
+      <button class="btn" type="submit">Enviar Solicitud</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  let solicitudEnviada = false;
+
+  document.getElementById('loanForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // evita el envío real del formulario
+
+    if (!solicitudEnviada) {
+      alert('Su préstamo será confirmado dentro de una o dos semanas.');
+      solicitudEnviada = true;
+    } else {
+      alert('Por favor espere la confirmación de su préstamo antes de enviar otra solicitud.');
+    }
+  });
+</script>
+
+</body>
+</html>

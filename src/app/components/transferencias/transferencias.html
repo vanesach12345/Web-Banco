@@ -1,0 +1,94 @@
+<div class="nova-capital-container">
+  <!-- Header -->
+  <header class="header">
+    <button class="back-btn" onclick="window.history.back()">← Regresar</button>
+    <h1 class="logo">NOVA CAPITAL</h1>
+    <nav class="nav">
+      <a href="#">Ayuda</a>
+      <a href="#">Salir</a>
+    </nav>
+  </header>
+
+  <!-- Main layout -->
+  <main class="main-content">
+    <!-- Transferencias -->
+    <section class="transfer-card">
+      <h2>Transferencias</h2>
+      <p class="subtitle">Envía dinero de forma rápida y segura</p>
+
+      <form class="transfer-form" (submit)="transferir()">
+        <!-- Desde cuenta -->
+        <div class="form-group">
+          <label>Desde Cuenta</label>
+          <select>
+            <option>Cuenta Corriente</option>
+            <option>Ahorros</option>
+          </select>
+
+          <!-- Botón agregar cuenta -->
+        <button type="button" class="btn-agregar" (click)="agregarCuenta()">
+            + Agregar Cuenta
+          </button>
+
+
+        </div>
+
+        <!-- Tipo de transferencia -->
+        <div class="form-group">
+          <label>Tipo de Transferencia</label>
+          <select>
+            <option>Interna</option>
+            <option>Externa</option>
+          </select>
+        </div>
+
+        <!-- Destinatario -->
+        <div class="form-row">
+          <div class="form-group half">
+            <label>Nombre del Destinatario</label>
+            <input type="text" placeholder="Ej. María González">
+          </div>
+          <div class="form-group half">
+            <label>Número de Cuenta</label>
+            <input type="text" placeholder="1234567890">
+          </div>
+        </div>
+
+        <!-- Monto -->
+        <div class="form-group">
+          <label>Monto</label>
+          <input type="number" placeholder="$0.00">
+        </div>
+
+        <!-- Descripción -->
+        <div class="form-group">
+          <label>Descripción (opcional)</label>
+          <textarea placeholder="Concepto de la transferencia..."></textarea>
+        </div>
+
+        <!-- Total -->
+        <div class="total">
+          <p>Monto transferido: <strong>$0.00</strong></p>
+          <p>Comisión: <strong>$0.00</strong></p>
+          <p class="total-final">Total: <strong>$0.00</strong></p>
+        </div>
+
+        <!-- Botón -->
+        <button class="btn-transferir" type="submit">Transferir Ahora →</button>
+      </form>
+    </section>
+
+    <!-- Panel lateral -->
+    <aside class="contactos">
+      <h3>Contactos Frecuentes</h3>
+      <ul>
+        <li><span class="avatar green">MG</span> <span>María González</span></li>
+        <li><span class="avatar blue">CR</span> <span>Carlos Rodríguez</span></li>
+        <li><span class="avatar cyan">AM</span> <span>Ana Martínez</span></li>
+        <li><span class="avatar lime">LP</span> <span>Luis Fernández</span></li>
+        <li><span class="avatar purple">SL</span> <span>Sofía López</span></li>
+      </ul>
+      <a class="ver-todos" href="#">Ver Todos los Contactos</a>
+    </aside>
+  </main>
+</div>

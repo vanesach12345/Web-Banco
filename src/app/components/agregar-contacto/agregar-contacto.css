@@ -1,0 +1,162 @@
+/* ==== Header ==== */
+.header {
+  background: linear-gradient(90deg, #5b2f91, #8b47c8);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 2rem;
+  color: white;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.nav a {
+  color: white;
+  margin-left: 1.5rem;
+  text-decoration: none;
+  font-weight: 500;
+}
+.nav a:hover {
+  opacity: 0.8;
+}
+.back-btn {
+      background: none; border: none; color: #fff;
+      font-size: 18px; cursor: pointer; padding: 8px 12px; border-radius: 6px;
+      transition: background-color .2s, transform .2s;
+    }
+    .back-btn:hover { background-color: rgba(255,255,255,0.15); transform: translateX(-3px); }
+    .header-title { font-size: 18px; font-weight: 600; }
+
+/* ==== Página ==== */
+.main {
+  background-color: #f8f8fc;
+  display: flex;
+  justify-content: center;
+  padding: 3rem 0;
+  min-height: 100vh;
+}
+
+/* ==== Card ==== */
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 700px;
+  padding: 2.5rem 3rem;
+  border: 1px solid #e6e6e6;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.icon {
+  background-color: #f1ebfb;
+  border-radius: 50%;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-header h2 {
+  margin: 0;
+  color: #3c226e;
+  font-weight: 600;
+}
+
+.card-header p {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 0.2rem;
+}
+
+/* ==== Formularios ==== */
+h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #5b2f91;
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+
+input,
+select {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.6rem;
+  font-size: 0.9rem;
+  transition: border-color 0.3s;
+}
+
+input:focus,
+select:focus {
+  border-color: #6a35c0;
+  outline: none;
+}
+
+input::placeholder {
+  color: #aaa;
+}
+
+/* ==== Botones ==== */
+.buttons {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.btn {
+  border-radius: 6px;
+  padding: 0.7rem 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #5b2f91, #8b47c8);
+  border: none;
+  color: white;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  background: #f8f8f8;
+  border: 1px solid #ccc;
+  color: #333;
+}
+
+.note {
+  text-align: right;
+  color: #777;
+  font-size: 0.8rem;
+  margin-top: 0.7rem;
+}
