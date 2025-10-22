@@ -20,6 +20,7 @@
   font-size: 16px;
   text-decoration: none;
 }
+<<<<<<< HEAD
 .back-btn {
       background: none; border: none; color: #fff;
       font-size: 18px; cursor: pointer; padding: 8px 12px; border-radius: 6px;
@@ -27,6 +28,8 @@
     }
     .back-btn:hover { background-color: rgba(255,255,255,0.15); transform: translateX(-3px); }
     .header-title { font-size: 18px; font-weight: 600; }
+=======
+>>>>>>> 7734e7b69d439d07ee577c433058e30a36d2cc37
 
 /* Dashboard layout */
 .dashboard {

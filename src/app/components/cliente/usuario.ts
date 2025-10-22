@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+<<<<<<< HEAD
 import { Router } from '@angular/router';
+=======
+>>>>>>> 7734e7b69d439d07ee577c433058e30a36d2cc37
 
 @Component({
   selector: 'app-login-home',
@@ -10,7 +13,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./cliente.css']
 })
 export class ClienteComponent {
+<<<<<<< HEAD
   constructor(private router: Router) {}
+=======
+  isFlipped = false;
+>>>>>>> 7734e7b69d439d07ee577c433058e30a36d2cc37
 
   transacciones = [
     { name: "Supermercado Central", amount: "-$45.20", date: "Hoy, 10:30 AM", type: "expense" },
@@ -18,6 +25,7 @@ export class ClienteComponent {
     { name: "Pago de servicios", amount: "-$120.00", date: "15 Ene, 9:00 AM", type: "expense" }
   ];
 
+<<<<<<< HEAD
   promociones = [
     { img: "assets/img/img1.png", titulo: "Créditos Personales", texto: "Solicita tu crédito con aprobación inmediata y tasas preferenciales." },
     { img: "assets/img/img2.png", titulo: "Seguros Nova", texto: "Protege tu vida y tu patrimonio con seguros adaptados a ti." },
@@ -26,5 +34,16 @@ export class ClienteComponent {
 
   irATransferencias() {
     this.router.navigate(['/transferencias']);
+=======
+ promociones = [
+  { img: "assets/img/img1.png", titulo: "Créditos Personales", texto: "Solicita tu crédito con aprobación inmediata y tasas preferenciales." },
+  { img: "assets/img/img2.png", titulo: "Seguros Nova", texto: "Protege tu vida y tu patrimonio con seguros adaptados a ti." },
+  { img: "assets/img/img3.png", titulo: "Inversiones", texto: "Haz crecer tu dinero con opciones seguras y flexibles." }
+];
+
+
+  flipCard() {
+    this.isFlipped = !this.isFlipped;
+>>>>>>> 7734e7b69d439d07ee577c433058e30a36d2cc37
   }
 }

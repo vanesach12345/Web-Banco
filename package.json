@@ -35,7 +35,10 @@
     "@angular/platform-server": "^20.2.0",
     "@angular/router": "^20.2.0",
     "@angular/ssr": "^20.2.2",
+<<<<<<< HEAD
     "@google/generative-ai": "^0.24.1",
+=======
+>>>>>>> 7734e7b69d439d07ee577c433058e30a36d2cc37
     "bcrypt": "^6.0.0",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
