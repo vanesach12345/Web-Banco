@@ -1,134 +1,99 @@
-<<<<<<< HEAD
 import express, { Application } from "express";
 import cors from "cors";
-import sequelize from "../db/connection";
 import multer from "multer";
 import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
-import axios from "axios";
+import Tesseract from "tesseract.js";
+import pdf from "pdf-parse";
+import sequelize from "../db/connection";
 import authRoutes from "../routes/auth";
+import userRoutes from "../routes/user";
+import contactoRoutes from "../routes/contacto";          
+import transferenciasRoutes from "../routes/transferencias"; 
+import movimientosRoutes from "../routes/movimientos";
+
 
 dotenv.config();
-=======
-import express, { Application } from 'express';
-import cors from 'cors';
-import sequelize from '../db/connection';
-import multer from 'multer';
-import bcrypt from 'bcryptjs';   // importa bcrypt
-
-import authRoutes from '../routes/auth';
->>>>>>> 7734e7b69d439d07ee577c433058e30a36d2cc37
 
 class Server {
   private app: Application;
   private port: number;
-<<<<<<< HEAD
-  private hfApiKey: string;
 
   constructor() {
     this.app = express();
     this.port = Number(process.env.PORT) || 3001;
-    this.hfApiKey = process.env.HF_API_KEY || "";
-
-=======
-
-  constructor() {
-    this.app = express();
-    this.port = Number(process.env.PORT || 3001);
->>>>>>> 7734e7b69d439d07ee577c433058e30a36d2cc37
     this.middlewares();
     this.routes();
   }
 
+  // ==============================
+  // 🔧 MIDDLEWARES
+  // ==============================
   private middlewares() {
-<<<<<<< HEAD
-    this.app.use(
-      cors({
-        origin: process.env.CORS_ORIGIN || "http://localhost:4200",
-        credentials: true,
-      })
-    );
+    this.app.use(cors({ origin: "http://localhost:4200", credentials: true }));
     this.app.use(express.json());
-    this.app.use("/api/auth", authRoutes);
   }
 
+  // ==============================
+  // 🚀 RUTAS PRINCIPALES
+  // ==============================
   private routes() {
-    // ✅ Ruta principal
-    this.app.get("/", (_req, res) => res.json({ ok: true }));
+    const upload = multer();
 
-    // ✅ Prueba de conexión con Hugging Face
-    this.app.get("/api/test-hf", async (_req, res) => {
+    console.log("🛠️ Registrando rutas principales...");
+
+    // 🔹 Rutas externas
+    this.app.use("/api/auth", authRoutes);
+    this.app.use("/api/users", userRoutes);
+    this.app.use("/api/contactos", contactoRoutes);      
+    this.app.use("/api/transferencias", transferenciasRoutes); 
+    this.app.use("/api", movimientosRoutes);
+
+
+    // 🔹 OCR (PDF o Imagen)
+    this.app.post("/api/ocr", upload.single("file"), async (req, res) => {
       try {
-        console.log("🤖 Probando conexión con Hugging Face...");
+        if (!req.file) return res.status(400).json({ error: "No se envió archivo." });
 
-        const response = await axios.post(
-          "https://api-inference.huggingface.co/models/mistralai/Mixtral-8x7B-Instruct-v0.1",
-          {
-            inputs: "Dame una frase corta motivadora sobre tecnología en español.",
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${this.hfApiKey}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const file = req.file;
+        let textoExtraido = "";
 
-        const output =
-          response.data[0]?.generated_text ||
-          response.data?.generated_text ||
-          JSON.stringify(response.data);
+        if (file.mimetype === "application/pdf") {
+          const bufferData: Buffer = Buffer.from(file.buffer);
+          const data: any = await (pdf as any)(bufferData);
+          textoExtraido = data.text || "";
+        } else {
+          const bufferData: Buffer = Buffer.from(file.buffer);
+          const result: any = await (Tesseract as any).recognize(bufferData, "spa", {
+            logger: (m: any) => console.log(m.status, m.progress),
+          });
+          textoExtraido = result.data.text || "";
+        }
 
-        console.log("✅ Hugging Face respondió:", output);
-        res.json({ success: true, message: output });
-      } catch (error: any) {
-        console.error("❌ Error Hugging Face:", error.response?.data || error.message);
-        res.status(500).json({
-          success: false,
-          error: error.response?.data || error.message,
+        const matchFecha = textoExtraido.match(/\b\d{2}[\/\-\.]\d{2}[\/\-\.]\d{4}\b/);
+        const fechaDetectada = matchFecha ? matchFecha[0] : null;
+        const posibleDireccion = textoExtraido
+          .split("\n")
+          .find((l) => /(CALLE|COL\.|AV\.|NUM|CP|Mz|Lt|Fracc|colonia|avenida)/i.test(l));
+
+        res.json({
+          success: true,
+          texto: textoExtraido,
+          fecha: fechaDetectada,
+          direccion: posibleDireccion || null,
         });
+      } catch (err: any) {
+        console.error("❌ Error OCR:", err.message);
+        res.status(500).json({ success: false, error: err.message });
       }
     });
 
-    // ✅ Registro de usuarios + carga de archivos
-    const upload = multer();
-
+    // 🔹 Registro de usuario con archivos
     this.app.post(
       "/api/usuarios",
       upload.fields([
         { name: "ine", maxCount: 1 },
         { name: "comprobante_dir", maxCount: 1 },
-=======
-    this.app.use(cors());
-    this.app.use(express.json());
-
-    // rutas externas
-    this.app.use('/api/auth', authRoutes);
-
-    // permitir conexión desde Angular
-    this.app.use(cors({ origin: 'http://localhost:4200', credentials: true }));
-  }
-
-  private routes() {
-    // Ruta de prueba
-    this.app.get('/', (_req, res) => res.json({ ok: true }));
-
-    this.app.get('/api/usuarios', async (_req, res) => {
-      try {
-        const [rows] = await sequelize.query('SELECT * FROM Usuario');
-        res.json(rows);
-      } catch (err: any) {
-        res.status(500).json({ error: err.message });
-      }
-    });
-
-    const upload = multer(); // memoria (buffer)
-    this.app.post(
-      '/api/usuarios',
-      upload.fields([
-        { name: 'ine', maxCount: 1 },
-        { name: 'comprobante_dir', maxCount: 1 },
->>>>>>> 7734e7b69d439d07ee577c433058e30a36d2cc37
       ]),
       async (req, res) => {
         try {
@@ -144,93 +109,78 @@ class Server {
             email,
           } = req.body;
 
-<<<<<<< HEAD
-          if (!rfc || rfc.trim() === "") {
-            return res.status(400).json({ error: "El RFC es obligatorio" });
-          }
-
           const hashedPassword = await bcrypt.hash(contrasena, 10);
-
-=======
-          if (!rfc || rfc.trim() === '') {
-            return res.status(400).json({ error: 'El RFC es obligatorio' });
-          }
-
-          //  Encriptamos la contraseña ANTES de guardarla
-          const hashedPassword = await bcrypt.hash(contrasena, 10);
-
-          // Manejo de archivos opcionales
->>>>>>> 7734e7b69d439d07ee577c433058e30a36d2cc37
-          const ine =
-            req.files && (req.files as any).ine
-              ? (req.files as any).ine[0].buffer
-              : null;
-<<<<<<< HEAD
-
-=======
->>>>>>> 7734e7b69d439d07ee577c433058e30a36d2cc37
-          const comprobante =
-            req.files && (req.files as any).comprobante_dir
-              ? (req.files as any).comprobante_dir[0].buffer
-              : null;
-
-          const id_rol = 1;
+          const ine = (req.files as any)?.ine?.[0]?.buffer || null;
+          const comprobante = (req.files as any)?.comprobante_dir?.[0]?.buffer || null;
 
           await sequelize.query(
-            `
-            INSERT INTO Usuario 
-            (nombre, apellido_paterno, apellido_materno, fecha_nac, cel, direccion, contrasena, ine, comprobante_dir, rfc, email, id_rol)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-          `,
+            `INSERT INTO Usuario 
+             (nombre, apellido_paterno, apellido_materno, fecha_nac, cel, direccion, contrasena, ine, comprobante_dir, rfc, email, id_rol)
+             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)`,
             {
               replacements: [
                 nombre,
                 apellido_paterno,
                 apellido_materno,
-<<<<<<< HEAD
                 fecha_nac || null,
                 cel,
                 direccion || null,
                 hashedPassword,
-=======
-                fecha_nac,
-                cel,
-                direccion,
-                hashedPassword,  //  Guardamos cifrada
->>>>>>> 7734e7b69d439d07ee577c433058e30a36d2cc37
                 ine,
                 comprobante,
                 rfc,
                 email,
-                id_rol,
               ],
             }
           );
 
-<<<<<<< HEAD
           res.json({ msg: "✅ Usuario registrado correctamente" });
         } catch (err: any) {
           console.error("❌ Error al registrar usuario:", err);
-=======
-          res.json({ msg: ' Usuario registrado correctamente' });
-        } catch (err: any) {
-          console.error(err);
->>>>>>> 7734e7b69d439d07ee577c433058e30a36d2cc37
           res.status(500).json({ error: err.message });
         }
       }
     );
+
+    // 🔹 Obtener datos del cliente
+    this.app.get("/api/cliente/:id", async (req, res) => {
+      const { id } = req.params;
+      try {
+        const [result]: any = await sequelize.query(
+          `
+          SELECT 
+            u.nombre, 
+            u.apellido_paterno, 
+            u.apellido_materno, 
+            c.num_cuenta,
+            c.saldo
+          FROM Usuario u
+          JOIN Cliente c ON u.id_usu = c.id_usu
+          WHERE u.id_usu = ?
+          `,
+          { replacements: [id] }
+        );
+
+        if (!result.length) {
+          return res.status(404).json({ error: "Cliente no encontrado" });
+        }
+
+        console.log("✅ Datos obtenidos del cliente:", result[0]);
+        res.json(result[0]);
+      } catch (err: any) {
+        console.error("❌ Error al obtener cliente:", err.message);
+        res.status(500).json({ error: "Error al obtener cliente" });
+      }
+    });
   }
 
+  // ==============================
+  // 🧠 INICIAR SERVIDOR
+  // ==============================
   public listen() {
     this.app.listen(this.port, () => {
-<<<<<<< HEAD
       console.log(`🚀 Servidor corriendo en el puerto ${this.port}`);
-      console.log("✅ DB OK - Conectado a MySQL");
-      console.log("🧠 Hugging Face listo para IA gratuita 🚀");
-=======
-      console.log(`Aplicacion corriendo en el puerto ${this.port}`);
->>>>>>> 7734e7b69d439d07ee577c433058e30a36d2cc37
+      console.log("🧠 OCR, Usuarios, Contactos y Transferencias listos 🚀");
     });
   }
 }

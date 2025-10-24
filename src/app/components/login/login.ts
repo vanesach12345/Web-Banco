@@ -2,19 +2,19 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './login.html',
   styleUrls: ['./login.css'],
-   host: { 'ngSkipHydration': '' },
+  host: { 'ngSkipHydration': '' },
 })
 export class LoginHome {
   private fb = inject(FormBuilder);
-  private auth = inject(AuthService);
+  private http = inject(HttpClient);
   private router = inject(Router);
 
   loading = false;
@@ -25,32 +25,50 @@ export class LoginHome {
     password: ['', [Validators.required]],
   });
 
-  submit(){
-  console.log('[login] submit', this.form.value);       
-  if (this.form.invalid) return;
+  submit() {
+    console.log('[login] submit', this.form.value);
+    if (this.form.invalid) return;
 
-  this.loading = true; this.error = null;
-  const { email, password } = this.form.value as { email:string; password:string };
+    this.loading = true;
+    this.error = null;
 
-  this.auth.login(email, password).subscribe({
-    next: (resp) => {
-      console.log('[login] resp', resp);
-      this.auth.saveSession(resp);
-      const role = this.auth.roleId;
-      console.log('[login] role', role);
+    const { email, password } = this.form.value as { email: string; password: string };
 
+    this.http.post<any>('http://localhost:3001/api/auth/login', { email, password })
+      .subscribe({
+        next: (resp) => {
+          console.log('[login] resp', resp);
 
+          // ✅ Guarda todos los datos relevantes del usuario en localStorage
+          localStorage.setItem('token', resp.token);
+          localStorage.setItem('idUsuario', String(resp.id_usu));
+          localStorage.setItem('nombre', resp.nombre || '');
+          localStorage.setItem('apellido_paterno', resp.apellido_paterno || '');
+          localStorage.setItem('apellido_materno', resp.apellido_materno || '');
+          localStorage.setItem('num_cuenta', resp.num_cuenta || '');
+          localStorage.setItem('saldo', String(resp.saldo || '0'));
+          localStorage.setItem('rol', String(resp.id_rol));
 
-      if (role === 1) this.router.navigate(['/cliente']);
-      else if (role === 2) this.router.navigate(['/gerente']);
-      else if (role === 3) this.router.navigate(['/ejecutivo']);
-      else this.router.navigate(['/login']);
-    },
-    error: (e) => {
-      console.error('[login] error', e);
-      this.error = e?.error?.error || 'Error de autenticación';
-      this.loading = false;
-    },
-    complete: () => this.loading = false
-  });
-  }}
+          const role = Number(resp.id_rol);
+          console.log('[login] role', role);
+
+          // ✅ Redirección según rol
+          if (role === 1) {
+            this.router.navigate(['/cliente']);
+          } else if (role === 2) {
+            this.router.navigate(['/gerente']);
+          } else if (role === 3) {
+            this.router.navigate(['/ejecutivo']);
+          } else {
+            this.router.navigate(['/login']);
+          }
+        },
+        error: (e) => {
+          console.error('[login] error', e);
+          this.error = e?.error?.error || 'Error de autenticación';
+          this.loading = false;
+        },
+        complete: () => (this.loading = false),
+      });
+  }
+}

@@ -1,5 +1,4 @@
 <div class="nova-capital-container">
-  <!-- Header -->
   <header class="header">
     <button class="back-btn" onclick="window.history.back()">← Regresar</button>
     <h1 class="logo">NOVA CAPITAL</h1>
@@ -9,86 +8,116 @@
     </nav>
   </header>
 
-  <!-- Main layout -->
   <main class="main-content">
     <!-- Transferencias -->
     <section class="transfer-card">
       <h2>Transferencias</h2>
       <p class="subtitle">Envía dinero de forma rápida y segura</p>
 
-      <form class="transfer-form" (submit)="transferir()">
-        <!-- Desde cuenta -->
-        <div class="form-group">
-          <label>Desde Cuenta</label>
-          <select>
-            <option>Cuenta Corriente</option>
-            <option>Ahorros</option>
-          </select>
+    <form class="transfer-form" (ngSubmit)="transferir()">
+  <!-- Desde cuenta -->
+  <div class="form-group">
+    <label>Desde Cuenta</label>
+    <input 
+      type="text" 
+      [(ngModel)]="cuentaOrigen" 
+      name="cuentaOrigen"
+      readonly
+      placeholder="Ej: 1234567890"
+    />
+    <button type="button" class="btn-agregar" (click)="agregarCuenta()">
+      + Agregar Cuenta
+    </button>
+  </div>
 
-          <!-- Botón agregar cuenta -->
-        <button type="button" class="btn-agregar" (click)="agregarCuenta()">
-            + Agregar Cuenta
-          </button>
+  <!-- Tipo de transferencia -->
+  <div class="form-group">
+    <label>Tipo de Transferencia</label>
+    <select [(ngModel)]="tipoTransferencia" name="tipoTransferencia">
+      <option [value]="1">Interna</option>
+      <option [value]="2">Externa</option>
+    </select>
+  </div>
 
+  <!-- Destinatario -->
+  <div class="form-row">
+    <div class="form-group half">
+      <label>Nombre del Destinatario</label>
+      <input type="text" [(ngModel)]="destinatarioNombre" name="destNombre" placeholder="Ej. María González">
+    </div>
+    <div class="form-group half">
+      <label>Número de Cuenta</label>
+      <input type="text" [(ngModel)]="destinatarioCuenta" name="destCuenta" placeholder="Ej. 9988776655">
+    </div>
+  </div>
 
-        </div>
+  <!-- Monto -->
+  <div class="form-group">
+    <label>Monto</label>
+    <input type="number" [(ngModel)]="monto" name="monto" placeholder="$0.00" (input)="onMontoChange()">
+  </div>
 
-        <!-- Tipo de transferencia -->
-        <div class="form-group">
-          <label>Tipo de Transferencia</label>
-          <select>
-            <option>Interna</option>
-            <option>Externa</option>
-          </select>
-        </div>
+  <!-- Descripción -->
+  <div class="form-group">
+    <label>Descripción (opcional)</label>
+    <textarea [(ngModel)]="concepto" name="concepto" placeholder="Concepto de la transferencia..."></textarea>
+  </div>
 
-        <!-- Destinatario -->
-        <div class="form-row">
-          <div class="form-group half">
-            <label>Nombre del Destinatario</label>
-            <input type="text" placeholder="Ej. María González">
-          </div>
-          <div class="form-group half">
-            <label>Número de Cuenta</label>
-            <input type="text" placeholder="1234567890">
-          </div>
-        </div>
+  <!-- Total -->
+  <div class="total">
+    <p>Monto transferido: <strong>${{ monto || 0 }}</strong></p>
+    <p>IVA (7%): <strong>${{ iva }}</strong></p>
+    <p>Comisión: <strong>${{ comision }}</strong></p>
+    <p class="total-final">Total: <strong>${{ total }}</strong></p>
+  </div>
 
-        <!-- Monto -->
-        <div class="form-group">
-          <label>Monto</label>
-          <input type="number" placeholder="$0.00">
-        </div>
+  <!-- Botón -->
+  <button class="btn-transferir" type="submit">Transferir Ahora →</button>
+</form>
 
-        <!-- Descripción -->
-        <div class="form-group">
-          <label>Descripción (opcional)</label>
-          <textarea placeholder="Concepto de la transferencia..."></textarea>
-        </div>
-
-        <!-- Total -->
-        <div class="total">
-          <p>Monto transferido: <strong>$0.00</strong></p>
-          <p>Comisión: <strong>$0.00</strong></p>
-          <p class="total-final">Total: <strong>$0.00</strong></p>
-        </div>
-
-        <!-- Botón -->
-        <button class="btn-transferir" type="submit">Transferir Ahora →</button>
-      </form>
     </section>
 
-    <!-- Panel lateral -->
+    <!-- Panel lateral: contactos -->
     <aside class="contactos">
       <h3>Contactos Frecuentes</h3>
       <ul>
-        <li><span class="avatar green">MG</span> <span>María González</span></li>
-        <li><span class="avatar blue">CR</span> <span>Carlos Rodríguez</span></li>
-        <li><span class="avatar cyan">AM</span> <span>Ana Martínez</span></li>
-        <li><span class="avatar lime">LP</span> <span>Luis Fernández</span></li>
-        <li><span class="avatar purple">SL</span> <span>Sofía López</span></li>
+        <li *ngFor="let c of contactos" (click)="seleccionarContacto(c)" class="contacto-item">
+          <span class="avatar">{{ (c.alias || c.nombre_contacto).slice(0,1) | uppercase }}</span>
+          <div class="cx">
+            <strong>{{ c.alias || c.nombre_contacto }}</strong>
+            <small>{{ c.banco }} — {{ c.num_cuenta_destino }}</small>
+          </div>
+        </li>
       </ul>
-      <a class="ver-todos" href="#">Ver Todos los Contactos</a>
+      <a class="ver-todos" (click)="agregarCuenta()">+ Agregar nuevo contacto</a>
     </aside>
   </main>
+  <!-- 🟣 MODAL DEL COMPROBANTE -->
+<div class="modal-overlay" *ngIf="mostrarModal">
+  <div class="modal" #comprobantePDF>
+    <div class="modal-header">
+      <h2>✅ ¡Transferencia Exitosa!</h2>
+    </div>
+
+    <div class="modal-body">
+      <h3>Comprobante de Transferencia</h3>
+      <p><strong>Folio:</strong> {{ comprobante?.folio }}</p>
+      <p><strong>Desde:</strong> {{ mask(cuentaOrigen) }}</p>
+      <p><strong>Hacia:</strong> {{ destinatarioNombre }} ({{ mask(destinatarioCuenta) }})</p>
+      <p><strong>Monto:</strong> ${{ monto.toFixed(2) }}</p>
+      <p><strong>IVA (7%):</strong> ${{ iva.toFixed(2) }}</p>
+      <p><strong>Total:</strong> ${{ total.toFixed(2) }}</p>
+      <p><strong>Descripción:</strong> {{ concepto || 'Sin descripción' }}</p>
+      <p><strong>Fecha:</strong> {{ comprobante?.fecha ? (comprobante.fecha | date:'short') : (today | date:'short') }}</p>
+
+
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-primary" (click)="descargarPDF()">📄 Descargar PDF</button>
+      <button class="btn btn-secondary" (click)="cerrarModal()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
 </div>

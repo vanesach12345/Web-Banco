@@ -11,7 +11,7 @@ router.post('/login', async (req, res) => {
 
   try {
     const [rows]: any = await sequelize.query(
-      `SELECT id_usu, nombre, apellido_paterno, email, contrasena, id_rol
+      `SELECT id_usu, nombre, apellido_paterno, apellido_materno, email, contrasena, id_rol
          FROM Usuario WHERE email = ? LIMIT 1`,
       { replacements: [email] }
     );
@@ -19,7 +19,7 @@ router.post('/login', async (req, res) => {
     const user = Array.isArray(rows) ? rows[0] : rows;
     if (!user) return res.status(401).json({ error: 'Credenciales inválidas' });
 
-    // Soporta contraseñas en texto (tus inserts) o con bcrypt
+    // Soporta contraseñas en texto plano o con bcrypt
     const hash = user.contrasena ?? '';
     const ok = hash.startsWith('$2') ? await bcrypt.compare(password, hash) : (password === hash);
     if (!ok) return res.status(401).json({ error: 'Credenciales inválidas' });
@@ -30,8 +30,15 @@ router.post('/login', async (req, res) => {
       { expiresIn: '2h' }
     );
 
-    const { contrasena, ...safeUser } = user;
-    res.json({ token, user: safeUser });
+    // 🔥 Sin envolver en "user": respuesta PLANA
+    res.json({
+      msg: 'Inicio de sesión correcto',
+      token,
+      id_usu: user.id_usu,
+      nombre: user.nombre,
+      apellido_paterno: user.apellido_paterno,
+      id_rol: user.id_rol
+    });
   } catch (e:any) {
     res.status(500).json({ error: e.message });
   }
