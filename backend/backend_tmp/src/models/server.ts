@@ -13,6 +13,7 @@ import transferenciasRoutes from "../routes/transferencias";
 import movimientosRoutes from "../routes/movimientos";
 
 
+
 dotenv.config();
 
 class Server {
@@ -48,6 +49,42 @@ class Server {
     this.app.use("/api/contactos", contactoRoutes);      
     this.app.use("/api/transferencias", transferenciasRoutes); 
     this.app.use("/api", movimientosRoutes);
+    
+
+  // Ruta para obtener las transacciones con filtros
+this.app.get("/api/transacciones", async (req, res) => {
+  try {
+    const { tipoMovimiento, numeroCuenta, usuario, fecha } = req.query;
+
+    let query = `SELECT * FROM Transacciones WHERE 1=1`;
+
+    if (tipoMovimiento) {
+      query += ` AND tipo_movimiento = '${tipoMovimiento}'`;
+    }
+    if (numeroCuenta) {
+      query += ` AND cuenta_origen = '${numeroCuenta}'`;
+    }
+    if (usuario) {
+      query += ` AND usuario = '${usuario}'`;
+    }
+    if (fecha) {
+      query += ` AND fecha = '${fecha}'`;
+    }
+
+    // Realiza la consulta a la base de datos con los filtros
+    const [result]: any = await sequelize.query(query);
+
+    if (result.length === 0) {
+      return res.status(404).json({ message: "No se encontraron transacciones" });
+    }
+
+    console.log("✅ Transacciones obtenidas:", result);
+    res.json(result); // Devuelve las transacciones en formato JSON
+  } catch (err: any) {
+    console.error("❌ Error al obtener las transacciones:", err.message);
+    res.status(500).json({ error: "Error al obtener las transacciones" });
+  }
+});
 
 
     // 🔹 OCR (PDF o Imagen)
@@ -86,6 +123,9 @@ class Server {
         console.error("❌ Error OCR:", err.message);
         res.status(500).json({ success: false, error: err.message });
       }
+
+
+      
     });
 
     // 🔹 Registro de usuario con archivos
@@ -142,6 +182,8 @@ class Server {
       }
     );
 
+
+
     // 🔹 Obtener datos del cliente
     this.app.get("/api/cliente/:id", async (req, res) => {
       const { id } = req.params;
@@ -173,6 +215,7 @@ class Server {
       }
     });
   }
+  
 
   // ==============================
   // 🧠 INICIAR SERVIDOR

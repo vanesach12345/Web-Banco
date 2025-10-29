@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {  RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'panel-ejecutivo',
@@ -8,5 +9,9 @@ import {  RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
   styleUrls: ['./ejecutivo.css'],
     imports: [RouterModule,],
 
+
 })
-export class EjecutivoComponent {}
+export class EjecutivoComponent {
+constructor(private Router:Router){}
+  consuktasclick(): void{this.Router.navigate(['/consultas']);}
+}

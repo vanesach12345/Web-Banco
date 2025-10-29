@@ -8,10 +8,13 @@ export const roleGuard: CanActivateFn = (route: ActivatedRouteSnapshot): boolean
   const router = inject(Router);
   const platformId = inject(PLATFORM_ID);
 
+  // Si no estamos en el navegador (SSR), permite pasar
   if (!isPlatformBrowser(platformId)) return true;
 
-  const allowed: number[] = route.data?.['roles'] ?? [];
-  const role = auth.roleId;
+  const allowed: number[] = route.data?.['roles'] ?? []; // Roles permitidos para la ruta
+  const role = auth.roleId; // Obtenemos el rol del usuario desde el servicio AuthService
+
+  // Verificamos si el usuario está autenticado y si su rol está permitido para esta ruta
   return (auth.isLoggedIn() && role != null && allowed.includes(role))
     ? true
     : router.createUrlTree(['/login']);

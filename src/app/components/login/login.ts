@@ -28,6 +28,12 @@ export class LoginHome {
   submit() {
     console.log('[login] submit', this.form.value);
     if (this.form.invalid) return;
+    
+  console.log('[login] submit', this.form.value);
+  console.log('[login] formulario válido:', this.form.valid);
+  if (this.form.invalid) return;
+
+
 
     this.loading = true;
     this.error = null;
@@ -69,6 +75,8 @@ export class LoginHome {
           this.loading = false;
         },
         complete: () => (this.loading = false),
+        
       });
+      
   }
 }
