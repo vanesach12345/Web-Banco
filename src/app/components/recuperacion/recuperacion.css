@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .recuperacion-container {
   height: 100vh;
   display: flex;
@@ -79,6 +80,99 @@ input[type="email"]:focus {
   color: #6a1b9a;
   text-decoration: none;
   font-weight: bold;
+=======
+/* Fondo general */
+.recuperacion-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #2a003f, #4a007a, #5e0d91);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Tarjeta principal */
+.recuperacion-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.25);
+  text-align: center;
+}
+
+/* Título */
+.recuperacion-card h2 {
+  margin-bottom: 0.5rem;
+  color: #4a007a;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+/* Texto explicativo */
+.recuperacion-card .texto {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+/* Grupos de formulario */
+.form-group {
+  text-align: left;
+  margin-bottom: 1.2rem;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #333;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  border-color: #4a007a;
+  outline: none;
+}
+
+/* Botón */
+.btn {
+  background: #4a007a;
+  color: #fff;
+  border: none;
+  padding: 0.9rem;
+  width: 100%;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #37005a;
+}
+
+/* Link de regresar */
+.acciones {
+  margin-top: 1.5rem;
+}
+
+.acciones a {
+  font-size: 0.9rem;
+  color: #4a007a;
+  text-decoration: none;
+  font-weight: 600;
+>>>>>>> bdbd8f43011b87f0121304e3b1d8def50cccafdc
 }
 
 .acciones a:hover {

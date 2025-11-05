@@ -6,7 +6,10 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> bdbd8f43011b87f0121304e3b1d8def50cccafdc
 type Contacto = {
   id_contacto: number;
   nombre_contacto: string;

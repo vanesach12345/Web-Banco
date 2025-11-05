@@ -16,7 +16,10 @@
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [ "src/assets",
+<<<<<<< HEAD
             
+=======
+>>>>>>> bdbd8f43011b87f0121304e3b1d8def50cccafdc
               {
                 "glob": "**/*",
                 "input": "public"
@@ -25,12 +28,20 @@
             "styles": [
               "src/styles.css"
             ],
+<<<<<<< HEAD
             
             "allowedCommonJsDependencies": []
 
                
           
 
+=======
+            "server": "src/main.server.ts",
+            "outputMode": "server",
+            "ssr": {
+              "entry": "src/server.ts"
+            }
+>>>>>>> bdbd8f43011b87f0121304e3b1d8def50cccafdc
           },
           "configurations": {
             "production": {

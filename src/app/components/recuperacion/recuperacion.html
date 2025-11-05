@@ -5,17 +5,28 @@
       Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.
     </p>
 
+<<<<<<< HEAD
     <form (ngSubmit)="enviarCorreo()">
       <div class="form-group">
         <label for="email">Correo electrónico</label>
         <input type="email" [(ngModel)]="email" name="email" placeholder="ejemplo@correo.com" required />
+=======
+    <form>
+      <div class="form-group">
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" placeholder="ejemplo@correo.com" required />
+>>>>>>> bdbd8f43011b87f0121304e3b1d8def50cccafdc
       </div>
 
       <button type="submit" class="btn">Recuperar Contraseña</button>
     </form>
 
     <div class="acciones">
+<<<<<<< HEAD
       <a routerLink="/login">← Regresar al inicio de sesión</a>
+=======
+      <a href="/login">← Regresar al inicio de sesión</a>
+>>>>>>> bdbd8f43011b87f0121304e3b1d8def50cccafdc
     </div>
   </div>
 </div>

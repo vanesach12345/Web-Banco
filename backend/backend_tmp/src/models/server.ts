@@ -11,8 +11,11 @@ import userRoutes from "../routes/user";
 import contactoRoutes from "../routes/contacto";          
 import transferenciasRoutes from "../routes/transferencias"; 
 import movimientosRoutes from "../routes/movimientos";
+<<<<<<< HEAD
 import recuperacionRouter from '../routes/recuperacion';
 import restablecerRouter from '../routes/restablecer';
+=======
+>>>>>>> bdbd8f43011b87f0121304e3b1d8def50cccafdc
 
 
 
@@ -51,8 +54,11 @@ class Server {
     this.app.use("/api/contactos", contactoRoutes);      
     this.app.use("/api/transferencias", transferenciasRoutes); 
     this.app.use("/api", movimientosRoutes);
+<<<<<<< HEAD
     this.app.use('/api/recuperacion', recuperacionRouter);
     this.app.use('/api/restablecer', restablecerRouter);
+=======
+>>>>>>> bdbd8f43011b87f0121304e3b1d8def50cccafdc
     
 
   // Ruta para obtener las transacciones con filtros

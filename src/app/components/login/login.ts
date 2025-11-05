@@ -19,7 +19,10 @@ export class LoginHome {
 
   loading = false;
   error: string | null = null;
+<<<<<<< HEAD
   
+=======
+>>>>>>> bdbd8f43011b87f0121304e3b1d8def50cccafdc
 
   form: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],

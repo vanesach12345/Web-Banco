@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+<<<<<<< HEAD
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'; // ✅ IMPORTANTE
 
@@ -35,3 +36,15 @@ export class RecuperacionComponent {
       });
   }
 }
+=======
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-recuperacion',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './recuperacion.html',
+  styleUrls: ['./recuperacion.css']
+})
+export class Recuperacion {}
+>>>>>>> bdbd8f43011b87f0121304e3b1d8def50cccafdc

@@ -1,18 +1,33 @@
+<<<<<<< HEAD
+=======
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+>>>>>>> bdbd8f43011b87f0121304e3b1d8def50cccafdc
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
+<<<<<<< HEAD
     "types": ["node"]
+=======
+    "types": [
+      "node"
+    ]
+>>>>>>> bdbd8f43011b87f0121304e3b1d8def50cccafdc
   },
   "include": [
     "src/**/*.ts"
   ],
   "exclude": [
+<<<<<<< HEAD
     "src/**/*.spec.ts",
     "../backend/**/*",
     "../../backend/**/*",
     "backend/**/*",
     "**/server.ts",
     "**/*.server.ts"
+=======
+    "src/**/*.spec.ts"
+>>>>>>> bdbd8f43011b87f0121304e3b1d8def50cccafdc
   ]
 }

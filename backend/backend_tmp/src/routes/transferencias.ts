@@ -1,9 +1,12 @@
 import { Router } from "express";
 import sequelize from "../db/connection";
+<<<<<<< HEAD
 import nodemailer from "nodemailer";
 import PDFDocument from "pdfkit";
 import fs from "fs";
 import path from "path";
+=======
+>>>>>>> bdbd8f43011b87f0121304e3b1d8def50cccafdc
 
 const router = Router();
 
@@ -11,17 +14,31 @@ router.post("/", async (req, res) => {
   try {
     const { cuenta_origen, cuenta_destino, monto, tipo_transferencia, descripcion } = req.body;
 
+<<<<<<< HEAD
     //  Validaciones
     if (!cuenta_origen || !cuenta_destino || monto == null) {
       return res.status(400).json({ ok: false, msg: "Datos incompletos." });
     }
+=======
+    // 🧩 Validaciones básicas
+    if (!cuenta_origen || !cuenta_destino || monto == null) {
+      return res.status(400).json({ ok: false, msg: "Datos incompletos" });
+    }
+
+>>>>>>> bdbd8f43011b87f0121304e3b1d8def50cccafdc
     if (monto <= 0) {
       return res.status(400).json({ ok: false, msg: "El monto debe ser mayor a 0." });
     }
 
+<<<<<<< HEAD
     //  Verificar saldo
     const [cliente]: any = await sequelize.query(
       "SELECT saldo FROM Cliente WHERE num_cuenta = ?",
+=======
+    // 💰 Consultar saldo actual
+    const [cliente]: any = await sequelize.query(
+      `SELECT saldo FROM Cliente WHERE num_cuenta = ?`,
+>>>>>>> bdbd8f43011b87f0121304e3b1d8def50cccafdc
       { replacements: [cuenta_origen] }
     );
 
@@ -30,10 +47,16 @@ router.post("/", async (req, res) => {
     }
 
     const saldoActual = Number(cliente[0].saldo);
+<<<<<<< HEAD
+=======
+
+    // ❌ Validar fondos
+>>>>>>> bdbd8f43011b87f0121304e3b1d8def50cccafdc
     if (monto > saldoActual) {
       return res.status(400).json({ ok: false, msg: "Saldo insuficiente para realizar la transferencia." });
     }
 
+<<<<<<< HEAD
     // Cálculos
     const iva = +(monto * 0.07).toFixed(2);
     const comision = 0;
@@ -51,10 +74,43 @@ router.post("/", async (req, res) => {
         replacements: [
           folio, monto, iva, comision, id_tipo_mov, tipo_transferencia,
           cuenta_origen, cuenta_destino, descripcion
+=======
+    // 🔹 Calcular IVA y demás
+    const iva = +(monto * 0.07).toFixed(2);
+    const comision = 0;
+    const id_tipo_mov = 3;
+
+    // Buscar id_contacto
+    const [contacto]: any = await sequelize.query(
+      `SELECT id_contacto FROM Contacto WHERE num_cuenta_destino = ? LIMIT 1`,
+      { replacements: [cuenta_destino] }
+    );
+
+    const id_contacto = contacto?.[0]?.id_contacto || null;
+
+    // 🧾 Insertar la transacción
+    const [result]: any = await sequelize.query(
+      `INSERT INTO Transacciones 
+       (monto, iva, comision, id_tipo_mov, id_tipo_transferencia,
+        id_cuenta_origen, id_cuenta_destino, id_contacto, descripcion, fecha)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())`,
+      {
+        replacements: [
+          monto,
+          iva,
+          comision,
+          id_tipo_mov,
+          tipo_transferencia,
+          cuenta_origen,
+          cuenta_destino,
+          id_contacto,
+          descripcion,
+>>>>>>> bdbd8f43011b87f0121304e3b1d8def50cccafdc
         ],
       }
     );
 
+<<<<<<< HEAD
     //  Actualizar saldos
     await sequelize.query(
       "UPDATE Cliente SET saldo = saldo - ? WHERE num_cuenta = ?",
@@ -83,11 +139,22 @@ router.post("/", async (req, res) => {
     const info = datos[0];
     const comprobante = {
       folio,
+=======
+    // 🔹 Actualizar saldo del cliente
+    await sequelize.query(
+      `UPDATE Cliente SET saldo = saldo - ? WHERE num_cuenta = ?`,
+      { replacements: [monto, cuenta_origen] }
+    );
+
+    const comprobante = {
+      id_transaccion: result,
+>>>>>>> bdbd8f43011b87f0121304e3b1d8def50cccafdc
       fecha: new Date().toISOString(),
       cuenta_origen,
       cuenta_destino,
       monto,
       iva,
+<<<<<<< HEAD
       total,
       descripcion,
     };
@@ -200,6 +267,17 @@ router.post("/", async (req, res) => {
 
   } catch (error: any) {
     console.error("❌ Error en transferencia:", error);
+=======
+      comision,
+      descripcion,
+    };
+
+    console.log("✅ Transferencia registrada:", comprobante);
+    res.json({ ok: true, comprobante });
+
+  } catch (error: any) {
+    console.error("❌ Error en transferencia:", error.message);
+>>>>>>> bdbd8f43011b87f0121304e3b1d8def50cccafdc
     res.status(500).json({ ok: false, msg: error.message });
   }
 });
