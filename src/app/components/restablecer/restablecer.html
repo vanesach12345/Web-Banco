@@ -1,0 +1,13 @@
+<div class="restablecer-container">
+  <div class="restablecer-card">
+    <h2>Restablecer Contraseña</h2>
+    <form (ngSubmit)="cambiarPassword()">
+      <div class="form-group">
+        <label for="nueva">Nueva Contraseña</label>
+        <input type="password" id="nueva" [(ngModel)]="nueva" name="nueva" required />
+      </div>
+
+      <button type="submit" class="btn">Actualizar Contraseña</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Ejecutivo Bancario</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #6B46C1, #6B46C1);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        .back-btn:hover {
+            background-color: rgba(255,255,255,0.15);
+            transform: translateX(-3px);
+        }
+
+        .menu-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .header-title h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .header-title p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-ejecutivo {
+            background: #fbbf24;
+            color: #1f2937;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .btn-cambiar {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .main-content {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .welcome-section {
+            margin-bottom: 2rem;
+        }
+
+        .welcome-section h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-section p {
+            color: #6b7280;
+            font-size: 1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-title {
+            font-size: 0.9rem;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .stat-icon {
+            width: 20px;
+            height: 20px;
+            opacity: 0.6;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-change {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e5e7eb;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+        }
+
+        .pending-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+        }
+
+        .pending-urgent {
+            background: #fef2f2;
+            border-left: 4px solid #ef4444;
+        }
+
+        .pending-ready {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .pending-review {
+            background: #f3f4f6;
+            border-left: 4px solid #6b7280;
+        }
+
+        .pending-content h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .pending-content p {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .badge-urgent {
+            background: #ef4444;
+            color: white;
+        }
+
+        .badge-ready {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .badge-review {
+            background: #6b7280;
+            color: white;
+        }
+
+        .action-button {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .action-button:hover {
+            background: #f3f4f6;
+        }
+
+        .action-icon {
+            width: 16px;
+            height: 16px;
+            opacity: 0.7;
+        }
+
+        .progress-section {
+            margin-bottom: 2rem;
+        }
+
+        .progress-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .progress-value {
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+
+        .progress-purple {
+            background: #f6a15c;
+        }
+
+        .progress-blue {
+            background: #3b82f6;
+        }
+
+        .progress-green {
+            background: #10b981;
+        }
+
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .activity-indicator {
+            width: 4px;
+            height: 40px;
+            border-radius: 2px;
+            margin-top: 0.25rem;
+        }
+
+        .indicator-blue {
+            background: #3b82f6;
+        }
+
+        .indicator-orange {
+            background: #f59e0b;
+        }
+
+        .indicator-red {
+            background: #ef4444;
+        }
+
+        .activity-content h4 {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-time {
+            font-size: 0.8rem;
+            color: #6b7280;
+        }
+
+        .permissions-list {
+            list-style: none;
+        }
+
+        .permissions-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .permission-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem;
+            }
+
+            .header-buttons {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .content-grid,
+            .bottom-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-left">
+            <!-- Botón regresar -->
+            <button class="back-btn" onclick="window.history.back()">← Regresar</button>
+            <button class="menu-btn">☰</button>
+            <div class="header-title">
+                <h1>Panel Ejecutivo Bancario</h1>
+                <p>Operaciones bancarias estándar</p>
+            </div>
+        </div>
+        <div class="header-buttons">
+            <button class="btn-ejecutivo">Ejecutivo</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="welcome-section">
+            <h2>Bienvenido, Ejecutivo Bancario</h2>
+            <p>Gestiona cuentas, autoriza solicitudes y consulta información bancaria desde tu panel de control.</p>
+        </section>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-title">Cuentas Creadas Hoy</span>
+                    <span class="stat-icon">📊</span>
+                </div>
+                <div class="stat-number">24</div>
+                <div class="stat-change">+8 desde ayer</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-title">Solicitudes Pendientes</span>
+                    <span class="stat-icon">⏰</span>
+                </div>
+                <div class="stat-number">12</div>
+                <div class="stat-change">Requieren autorización</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-title">Autorizaciones Hoy</span>
+                    <span class="stat-icon">⭐</span>
+                </div>
+                <div class="stat-number">47</div>
+                <div class="stat-change">+12% vs promedio</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header">
+                    <span class="stat-title">Consultas Realizadas</span>
+                    <span class="stat-icon">🔍</span>
+                </div>
+                <div class="stat-number">156</div>
+                <div class="stat-change">Esta semana</div>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <div class="section-card">
+                <h3 class="section-title">Operaciones Bancarias Pendientes</h3>
+                <p class="section-subtitle">Solicitudes y cuentas que requieren tu atención</p>
+                
+                <div class="pending-item pending-urgent">
+                    <div class="pending-content">
+                        <h4>Autorizar préstamo empresarial - $500,000</h4>
+                        <p>Cliente: Empresa ABC S.A.</p>
+                    </div>
+                    <span class="status-badge badge-urgent">Urgente</span>
+                </div>
+
+                <div class="pending-item pending-ready">
+                    <div class="pending-content">
+                        <h4>Crear cuenta corporativa - Tech Solutions</h4>
+                        <p>Documentación completa</p>
+                    </div>
+                    <span class="status-badge badge-ready">Listo</span>
+                </div>
+
+                <div class="pending-item pending-review">
+                    <div class="pending-content">
+                        <h4>Revisar solicitud de crédito personal</h4>
+                        <p>Cliente: María González</p>
+                    </div>
+                    <span class="status-badge badge-review">En revisión</span>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h3 class="section-title">Acciones Ejecutivas</h3>
+                <p class="section-subtitle">Operaciones bancarias principales</p>
+                
+                <div class="action-button">
+                    <span class="action-icon">📁</span>
+                    <span>Abrir Nueva Cuenta</span>
+                </div>
+                <div class="action-button">
+                    <span class="action-icon">⭐</span>
+                    <span>Autorizar Solicitudes</span>
+                </div>
+               <button class="action-button" href="/ejecutivo/consultas_eje" type="button" (click)="consuktasclick()">
+                <span class="action-icon">🔍</span>
+                <span>Consultar Cuentas</span>
+                </button>
+                <div class="action-button">
+                    <span class="action-icon">📄</span>
+                    <span>Crear Cuenta Cliente</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-card progress-section">
+            <h3 class="section-title">Gestión de Cuentas - Progreso Mensual</h3>
+            <p class="section-subtitle">Estado de las operaciones bancarias del mes</p>
+            
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span class="progress-label">Cuentas Nuevas Creadas</span>
+                    <span class="progress-value">85% (340/400)</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill progress-purple" style="width: 85%"></div>
+                </div>
+            </div>
+
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span class="progress-label">Solicitudes Autorizadas</span>
+                    <span class="progress-value">92% (184/200)</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill progress-blue" style="width: 92%"></div>
+                </div>
+            </div>
+
+            <div class="progress-item">
+                <div class="progress-header">
+                    <span class="progress-label">Consultas Procesadas</span>
+                    <span class="progress-value">78% (780/1000)</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill progress-green" style="width: 78%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-grid">
+            <div class="section-card">
+                <h3 class="section-title">Actividad Reciente</h3>
+                <p class="section-subtitle">Últimas operaciones realizadas</p>
+                
+                <div class="activity-item">
+                    <div class="activity-indicator indicator-blue"></div>
+                    <div class="activity-content">
+                        <h4>Cuenta empresarial autorizada</h4>
+                        <p class="activity-time">Hace 15 minutos</p>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-indicator indicator-orange"></div>
+                    <div class="activity-content">
+                        <h4>Préstamo personal aprobado</h4>
+                        <p class="activity-time">Hace 1 hora</p>
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-indicator indicator-red"></div>
+                    <div class="activity-content">
+                        <h4>Nueva cuenta creada</h4>
+                        <p class="activity-time">Hace 2 horas</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-card">
+                <h3 class="section-title">Permisos Ejecutivo</h3>
+                <p class="section-subtitle">Tus capacidades en el sistema</p>
+                
+                <ul class="permissions-list">
+                    <li>
+                        <span class="permission-dot"></span>
+                        <span>Abrir cuentas</span>
+                    </li>
+                    <li>
+                        <span class="permission-dot"></span>
+                        <span>Autorizar solicitudes</span>
+                    </li>
+                    <li>
+                        <span class="permission-dot"></span>
+                        <span>Crear cuentas</span>
+                    </li>
+                    <li>
+                        <span class="permission-dot"></span>
+                        <span>Consultar información</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

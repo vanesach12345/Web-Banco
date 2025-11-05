@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Banco Seguro</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f6fa;
+      height: 100vh;
+      display: flex;
+      justify-content: center;  /* centra horizontal */
+      align-items: center;      /* centra vertical */
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Caja de login */
+    .login-box {
+      background: #fff;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0px 6px 25px rgba(0,0,0,0.1);
+      width: 380px;
+      text-align: center;
+      z-index: 10; /* siempre encima */
+      position: relative;
+    }
+
+    /* Fondo decorativo */
+    .background {
+      position: fixed; /* anclado, no se mueve */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .background img {
+      position: absolute;
+      opacity: 0.9;
+    }
+
+    /* Rectángulos */
+    .rect1 {
+      top: -60px;
+      left: -80px;
+      width: 320px;
+      transform: rotate(-12deg);
+    }
+
+    .rect2 {
+      top: 20px;
+      left: -50px;
+      width: 260px;
+      transform: rotate(-6deg);
+    }
+
+   /* Tarjeta derecha */
+    .card1 {
+      bottom: -50px;
+      right: -30px;   /* antes estaba -50px, la acercamos un poco */
+      width: 900px;   /* la hacemos más grande (antes 450px) */
+      transform: rotate(-10deg);
+    }
+
+/* Tarjeta izquierda */
+    .card2 {
+      bottom: 100px;
+      left: 30px;     /* la movemos más hacia la derecha (antes -70px) */
+      width: 500px;   /* un poco más grande para balancear */
+      transform: rotate(8deg);
+    }
+
+    
+    .logo img {
+      width: 70px;
+      margin-bottom: 16px;
+    }
+
+    .login-box h2 {
+      margin-bottom: 6px;
+      font-size: 22px;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .login-box p {
+      margin-bottom: 24px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      font-size: 14px;
+      font-weight: bold;
+      margin: 10px 0 4px;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 14px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 12px;
+      background: #6a1b9a;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .btn-primary:hover {
+      background: #4a148c;
+    }
+
+    .link-forgot {
+      display: block;
+      margin: 14px 0;
+      color: #f57c00;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .link-forgot:hover {
+      text-decoration: underline;
+    }
+
+    .btn-secondary {
+      width: 100%;
+      padding: 12px;
+      background: white;
+      border: 2px solid #6a1b9a;
+      color: #6a1b9a;
+      border-radius: 8px;
+      margin-top: 12px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .btn-secondary:hover {
+      background: #f3e5f5;
+    }
+
+    /* Responsivo */
+    @media (max-width: 992px) {
+      .card1, .card2 {
+        width: 200px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .rect1, .rect2 {
+        width: 180px;
+        left: 50%;
+        transform: translateX(-50%) rotate(-10deg);
+      }
+      .card1, .card2 {
+        display: none; /* ocultamos tarjetas en móviles */
+      }
+      .login-box {
+        width: 90%;
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Fondo: rectángulos + tarjetas -->
+  <div class="background">
+    <img src="../../../assets/img/rectangulo1.png" alt="Rectángulo morado 1" class="rect1">
+    <img src="../../../assets/img/rectangulo2.png" alt="Rectángulo morado 2" class="rect2">
+    <img src="/assets/tarjeta.png" alt="Tarjeta Nova Capital" class="card1">
+    <img src="/assets/tarjeta2.png" alt="Tarjeta Nova Capital" class="card2">
+  </div>
+
+  <!-- Login centrado -->
+  <div class="login-box">
+    <div class="logo">
+      <img src="../../../assets/img/logo.png" alt="Nova Capital">
+    </div>
+    <h2>Banco Seguro</h2>
+    <p>Ingresa a tu banco</p>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <label for="email">Correo electrónico</label>
+    <input id="email" type="email" formControlName="email" placeholder="tu@email.com">
+
+    <label for="password">Contraseña</label>
+    <input id="password" type="password" formControlName="password" placeholder="">
+
+   
+     <button class="btn-primary" type="submit"  [disabled]="loading">Iniciar Sesión</button>
+    </form>
+    <p *ngIf="error" style="color:#d00;margin-top:10px">{{ error }}</p>
+
+
+
+    <a class="link-forgot" href="/recuperacion">¿Olvidaste tu contraseña?</a>
+    <p>¿No tienes cuenta?</p>
+    <a href="/solicitud"><button type="button" class="btn-secondary">Crear Cuenta Nueva</button></a>
+    
+  </div>
+</body>
+</html>

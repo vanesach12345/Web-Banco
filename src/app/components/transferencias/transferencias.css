@@ -1,0 +1,296 @@
+:host {
+  display: block;
+  font-family: "Inter", "Poppins", sans-serif;
+  background-color: #f9fafb;
+  color: #1b1b1b;
+  min-height: 100vh;
+}
+
+/* ======= HEADER ======= */
+.header {
+  background: linear-gradient(90deg, #3c0a6d, #6a1b9a);
+  color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 3rem;
+  font-weight: 500;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 1.5rem;
+  transition: opacity 0.2s ease;
+}
+
+.nav a:hover {
+  opacity: 0.8;
+}
+.back-btn {
+      background: none; border: none; color: #fff;
+      font-size: 18px; cursor: pointer; padding: 8px 12px; border-radius: 6px;
+      transition: background-color .2s, transform .2s;
+    }
+    .back-btn:hover { background-color: rgba(255,255,255,0.15); transform: translateX(-3px); }
+    .header-title { font-size: 18px; font-weight: 600; }
+
+/* ======= CONTENEDOR PRINCIPAL ======= */
+.main-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  padding: 2.5rem 3rem;
+}
+
+@media (max-width: 1024px) {
+  .main-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ======= TARJETA TRANSFERENCIAS ======= */
+.transfer-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 2rem 2.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.transfer-card h2 {
+  margin-bottom: 0.3rem;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.transfer-card .subtitle {
+  color: #777;
+  font-size: 0.95rem;
+  margin-bottom: 1.8rem;
+}
+
+/* ======= FORMULARIO ======= */
+.transfer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #6a1b9a;
+  box-shadow: 0 0 0 3px rgba(106, 27, 154, 0.15);
+  outline: none;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-row .half {
+  flex: 1;
+}
+
+/* ======= BLOQUE TOTAL ======= */
+.total {
+  border: 1px solid #eeeeee;
+  background-color: #fafafa;
+  padding: 1rem 1.5rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+}
+
+.total p {
+  margin: 0.3rem 0;
+}
+
+.total-final {
+  font-weight: 700;
+  color: #3c0a6d;
+  margin-top: 0.4rem;
+}
+
+/* ======= BOTÓN PRINCIPAL ======= */
+.btn-transferir {
+  background: linear-gradient(90deg, #001744, #001c6c);
+  border: none;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.9rem;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.3s ease;
+}
+
+.btn-transferir:hover {
+  background: linear-gradient(90deg, #001c6c, #00298a);
+}
+
+/* ======= PANEL DE CONTACTOS ======= */
+.contactos {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem 2rem;
+  height: fit-content;
+}
+
+.contactos h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.contactos ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.contactos li {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: #fff;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar.green { background-color: #2ecc71; }
+.avatar.blue { background-color: #3498db; }
+.avatar.cyan { background-color: #00bcd4; }
+.avatar.lime { background-color: #8bc34a; }
+.avatar.purple { background-color: #9b59b6; }
+
+.ver-todos {
+  display: block;
+  text-align: center;
+  margin-top: 1.2rem;
+  color: #6a1b9a;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.ver-todos:hover {
+  text-decoration: underline;
+}
+
+/* ======= BOTÓN AGREGAR CUENTA ======= */
+.btn-agregar {
+  margin-top: 0.5rem;
+  background-color: transparent;
+  border: 1px dashed #6a1b9a;
+  color: #6a1b9a;
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.btn-agregar:hover {
+  background-color: #6a1b9a;
+  color: #fff;
+  border-style: solid;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 20px;
+  padding: 25px;
+  width: 420px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-header {
+  border-bottom: 2px solid #6a35c0;
+  margin-bottom: 15px;
+}
+
+.modal-header h2 {
+  color: #6a35c0;
+  margin: 0;
+}
+
+.modal-body p {
+  margin: 5px 0;
+  font-size: 15px;
+}
+
+.modal-footer {
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-primary {
+  background: #6a35c0;
+  color: #fff;
+}
+
+.btn-secondary {
+  background: #ccc;
+  color: #000;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+

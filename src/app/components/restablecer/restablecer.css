@@ -1,0 +1,66 @@
+.restablecer-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #6a1b9a, #9b4de1);
+  font-family: Arial, sans-serif;
+}
+
+.restablecer-card {
+  background: #fff;
+  padding: 40px;
+  border-radius: 20px;
+  width: 380px;
+  text-align: center;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+}
+
+.restablecer-card h2 {
+  color: #4a148c;
+  margin-bottom: 25px;
+  font-size: 24px;
+}
+
+.form-group {
+  text-align: left;
+  margin-bottom: 25px;
+}
+
+label {
+  font-weight: bold;
+  color: #333;
+  font-size: 14px;
+  display: block;
+  margin-bottom: 6px;
+}
+
+input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 15px;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+input[type="password"]:focus {
+  border-color: #6a1b9a;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  background: #6a1b9a;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.btn:hover {
+  background: #4a148c;
+}

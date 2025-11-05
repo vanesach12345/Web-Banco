@@ -1,0 +1,127 @@
+<header class="header">
+  <button class="back-btn" (click)="cancelar()">← Regresar</button>
+  <div class="logo">NOVA CAPITAL</div>
+  <div class="nav">
+    <a href="#">Ayuda</a>
+    <a href="#" (click)="cancelar()">Salir</a>
+  </div>
+</header>
+
+<main class="main">
+  <section class="card">
+    <div class="card-header">
+      <h2>Agregar nuevo contacto</h2>
+      <p>Complete la información del beneficiario para futuras transferencias.</p>
+    </div>
+
+    <form (ngSubmit)="guardarContacto()" #form="ngForm">
+
+      <!-- 🧍 Información personal -->
+      <h3>INFORMACIÓN PERSONAL</h3>
+
+      <div class="form-group">
+        <label>Nombre completo *</label>
+        <input
+          type="text"
+          [(ngModel)]="contacto.nombre_contacto"
+          name="nombre_contacto"
+          placeholder="Ejemplo: María González Pérez"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Número de identificación *</label>
+        <input
+          type="text"
+          [(ngModel)]="contacto.identificacion"
+          name="identificacion"
+          placeholder="Ejemplo: ABC123456"
+        />
+      </div>
+
+      <!-- 🏦 Información bancaria -->
+      <h3>INFORMACIÓN BANCARIA</h3>
+
+      <div class="form-group">
+        <label>Banco *</label>
+        <input
+          type="text"
+          [(ngModel)]="contacto.banco"
+          name="banco"
+          placeholder="Ejemplo: Banco Nacional, BBVA, Santander..."
+          required
+        />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Número de cuenta *</label>
+          <input
+            type="text"
+            [(ngModel)]="contacto.num_cuenta_destino"
+            name="num_cuenta_destino"
+            placeholder="Ejemplo: 9988776655"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Tipo de cuenta *</label>
+          <select
+            [(ngModel)]="contacto.tipo_cuenta"
+            name="tipo_cuenta"
+            required
+          >
+            <option value="">Seleccionar tipo...</option>
+            <option value="corriente">Corriente</option>
+            <option value="ahorro">Ahorro</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 📧 Información de contacto -->
+      <h3>INFORMACIÓN DE CONTACTO</h3>
+
+      <div class="form-group">
+        <label>Correo electrónico</label>
+        <input
+          type="email"
+          [(ngModel)]="contacto.correo"
+          name="correo"
+          placeholder="Ejemplo: maria@correo.com"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Teléfono</label>
+        <input
+          type="tel"
+          [(ngModel)]="contacto.telefono"
+          name="telefono"
+          placeholder="Ejemplo: +52 5512345678"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Alias</label>
+        <input
+          type="text"
+          [(ngModel)]="contacto.alias"
+          name="alias"
+          placeholder="Ejemplo: María G. (opcional)"
+        />
+      </div>
+
+      <!-- 🎯 Botones -->
+      <div class="buttons">
+        <button class="btn btn-primary" type="submit">Guardar contacto</button>
+        <button class="btn btn-secondary" type="button" (click)="cancelar()">Cancelar</button>
+      </div>
+
+      <!-- 📝 Mensaje al usuario -->
+      <p class="note">* Campos obligatorios</p>
+      <p class="mensaje" *ngIf="mensaje">{{ mensaje }}</p>
+    </form>
+  </section>
+</main>
